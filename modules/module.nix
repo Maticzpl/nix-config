@@ -1,11 +1,11 @@
 { lib, config, pkgs, ... }:
 
 let
-    cfg = config.MODULENAME;
+    cfg = config.userMods.MODULENAME;
 in
 
 {
-    options.MODULENAME = {
+    options.userMods.MODULENAME = {
         enable = lib.mkEnableOption "enable user module";
     };
 

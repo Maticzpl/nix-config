@@ -10,10 +10,15 @@
       inputs.home-manager.nixosModules.default
       ../../modules/software-center.nix
       ../../modules/app-image.nix
+      ../../modules/audio.nix
     ];
 
   userMods.softwareCenter.enable = true;
   userMods.appimage.enable = true;
+  userMods.audio = {
+      enable = true;
+      calfConfig = "/home/maticzpl/Documents/calf/default-connected";
+  };
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
