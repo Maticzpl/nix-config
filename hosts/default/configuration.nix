@@ -2,46 +2,24 @@
   # your system.  Help is available in the configuration.nix(5) man page
   # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
-let
-  nix-software-center = import (pkgs.fetchFromGitHub {
-    owner = "snowfallorg";
-    repo = "nix-software-center";
-    rev = "0.1.2";
-    sha256 = "xiqF1mP8wFubdsAQ1BmfjzCgOD3YZf7EGWl9i69FTls=";
-  }) {};
-
-  discover-wrapped = pkgs.symlinkJoin
-    {
-      name = "discover-flatpak-backend";
-      paths = [ pkgs.libsForQt5.discover ];
-      buildInputs = [ pkgs.makeWrapper ];
-      postBuild = ''
-        wrapProgram $out/bin/plasma-discover --add-flags "--backends flatpak"
-      '';
-    };
-in
-
-
+{ config, pkgs, inputs, ... }:
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
       ./hardware-configuration.nix
+      inputs.home-manager.nixosModules.default
+      ../../modules/software-center.nix
+      ../../modules/app-image.nix
     ];
+
+  userMods.softwareCenter.enable = true;
+  userMods.appimage.enable = true;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   boot.initrd.luks.devices."luks-669dd02b-c43a-4292-875d-c26d93864c18".device = "/dev/disk/by-uuid/669dd02b-c43a-4292-875d-c26d93864c18";
-  boot.binfmt.registrations.appimage = {
-    wrapInterpreterInShell = false;
-    interpreter = "${pkgs.appimage-run}/bin/appimage-run";
-    recognitionType = "magic";
-    offset = 0;
-    mask = ''\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff'';
-    magicOrExtension = ''\x7fELF....AI\x02'';
-  };
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
@@ -129,23 +107,8 @@ in
     isNormalUser = true;
     description = "Maticzpl";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      kate
-      vesktop
-      steam
-      spotify
-      bitwarden
-      calf
-      qpwgraph
-      flatpak
-      discover-wrapped
-      appimage-run
-      #  thunderbird
-    ];
+    # packages = [];
   };
-
-  # Install firefox.
-  programs.firefox.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -153,7 +116,6 @@ in
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    nix-software-center
     wget
     git
     neovim
@@ -170,6 +132,13 @@ in
   fonts.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "FiraCode" ]; })
   ];
+
+  home-manager = {
+    extraSpecialArgs = {inherit inputs;};
+    users = {
+        "maticzpl" = import ./home.nix;
+    };
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
