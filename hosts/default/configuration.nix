@@ -129,9 +129,16 @@
     gcc
     tree
     xclip
+    wl-clipboard
     unzip
     nodejs
     nixd
+
+    spotify
+
+    # gsettings-desktop-schemas
+    gnome.adwaita-icon-theme
+    gtk3
   ];
 
   fonts.packages = with pkgs; [
@@ -144,6 +151,70 @@
         "maticzpl" = import ./home.nix;
     };
   };
+
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+      alsa-lib
+      at-spi2-atk
+      at-spi2-core
+      atk
+      cairo
+      cups
+      curl
+      dbus
+      expat
+      fontconfig
+      freetype
+      fuse3
+      gdk-pixbuf
+      glib
+      gtk3
+      icu
+      libGL
+      libappindicator-gtk3
+      libdrm
+      libglvnd
+      libnotify
+      libpulseaudio
+      libunwind
+      libusb1
+      libuuid
+      libxkbcommon
+      libxml2
+      mesa
+      nspr
+      nss
+      openssl
+      pango
+      pipewire
+      stdenv.cc.cc
+      systemd
+      vulkan-loader
+      xorg.libX11
+      xorg.libXScrnSaver
+      xorg.libXcomposite
+      xorg.libXcursor
+      xorg.libXdamage
+      xorg.libXext
+      xorg.libXfixes
+      xorg.libXi
+      xorg.libXrandr
+      xorg.libXrender
+      xorg.libXtst
+      xorg.libxcb
+      xorg.libxkbfile
+      xorg.libxshmfence
+      zlib
+    # Add any missing dynamic libraries for unpackaged programs
+  ];
+
+  # programs.dconf.enable = true;
+  # xdg.portal = {
+  #     enable = true;
+  #     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  #     wlr.enable = true;
+  # };
+  # environment.variables.XDG_DATA_DIRS = [ "${pkgs.spotify}/share/gsettings-schemas/${pkgs.spotify.name}" ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

@@ -23,10 +23,13 @@
     kate
     vesktop
     steam
-    spotify
+    # spotify
     bitwarden
     firefox
     flatpak
+    gitkraken
+    neofetch
+    gnome.dconf-editor
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
@@ -92,4 +95,18 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
   nixpkgs.config.allowUnfree = true;
+
+  dconf.settings = {
+      "org/gnome/desktop/interface" = {
+          color-scheme = "prefer-dark";
+      };
+  };
+
+  # gtk = {
+  #     enable = true;
+  #     theme = {
+  #         name = "Adwaita-dark";
+  #         package = pkgs.gnome.gnome-themes-extra;
+  #     };
+  # };
 }
