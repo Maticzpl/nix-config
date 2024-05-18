@@ -24,6 +24,7 @@
     (vesktop.override { withSystemVencord = false; })
     steam
     spotify
+    spotify-tray
     bitwarden
     firefox
     flatpak

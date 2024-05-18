@@ -18,29 +18,8 @@ in
         environment.systemPackages = [
             pkgs.calf
             pkgs.qpwgraph
+            pkgs.wmctrl
         ];
-
-        # services.pipewire.configPackages = [
-        #     (pkgs.writeTextDir "share/pipewire/pipewire.conf.d/10-precalf-sink.conf" ''
-        #      context.modules = [
-        #      {   
-        #          name = libpipewire-module-loopback
-        #          args = {
-        #              audio.position = [ FL FR ]
-        #              capture.props = {
-        #                 media.class = Audio/Sink
-        #                 node.name = calf_sink
-        #                 node.description = "Precalf sink"
-        #              }
-        #              playback.props = {
-        #                 node.name = "calf_sink.output"
-        #                 node.passive = true
-        #              }
-        #          }
-        #      }
-        #      ]
-        #       '')
-        # ];
 
         services.pipewire.extraConfig.pipewire-pulse = {
             "precalf" = {
