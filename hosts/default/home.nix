@@ -62,6 +62,12 @@
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
+
+    ".config/fish/config.fish".text = ''
+          if status is-interactive
+            fish_vi_key_bindings
+          end
+      '';
   };
 
   # Home Manager can also manage your environment variables through
@@ -79,28 +85,23 @@
     EDITOR = "nvim";
   };
 
-  programs.bash = {
-    enable = true;
-    # bashrcExtra = ''
-    #     fish
-    # '';
-  };
-
   programs.git = {
     enable = true;
     userName = "Maticzpl";
     userEmail = "maticzpl06@gmail.com";
   };
 
-
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
   nixpkgs.config.allowUnfree = true;
 
-  dconf.settings = {
+  dconf = {
+    enable = true;
+    settings = {
       "org/gnome/desktop/interface" = {
           color-scheme = "prefer-dark";
       };
+    };
   };
 
   # gtk = {
