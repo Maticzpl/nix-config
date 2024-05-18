@@ -124,6 +124,7 @@
     wget
     git
     neovim
+    ripgrep
     fish
     rustup
     gcc
@@ -133,8 +134,6 @@
     unzip
     nodejs
     nixd
-
-    spotify
 
     # gsettings-desktop-schemas
     gnome.adwaita-icon-theme

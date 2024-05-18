@@ -21,9 +21,9 @@
     papirus-icon-theme
     blender-hip
     kate
-    vesktop
+    (vesktop.override { withSystemVencord = false; })
     steam
-    # spotify
+    spotify
     bitwarden
     firefox
     flatpak

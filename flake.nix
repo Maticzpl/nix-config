@@ -20,7 +20,7 @@
             specialArgs = {inherit inputs;};
             modules = [ 
                 nix-ld.nixosModules.nix-ld
-                /home/maticzpl/nix/hosts/default/configuration.nix
+                ./hosts/default/configuration.nix
                 inputs.home-manager.nixosModules.default
                 # { programs.nix-ld.dev.enable = true; }
             ];
