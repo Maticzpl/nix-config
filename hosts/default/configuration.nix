@@ -112,7 +112,10 @@
     isNormalUser = true;
     description = "Maticzpl";
     extraGroups = [ "networkmanager" "wheel" ];
-    # packages = [];
+    packages = with pkgs; [
+        remmina
+        lutris
+    ];
   };
 
   # Allow unfree packages
@@ -123,8 +126,11 @@
   environment.systemPackages = with pkgs; [
     wget
     git
+
     neovim
+    fd
     ripgrep
+
     fish
     rustup
     gcc
@@ -134,6 +140,8 @@
     unzip
     nodejs
     nixd
+
+    xdg-desktop-portal-kde
 
     # gsettings-desktop-schemas
     gnome.adwaita-icon-theme

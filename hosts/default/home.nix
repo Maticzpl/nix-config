@@ -29,8 +29,18 @@
     firefox
     flatpak
     gitkraken
-    neofetch
+    git-graph
+    fastfetch
     gnome.dconf-editor
+
+    bambu-studio
+    filezilla
+    protonup-qt
+    prismlauncher
+    alvr
+    wlx-overlay-s
+
+    android-studio
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
