@@ -105,20 +105,22 @@
   programs.home-manager.enable = true;
   nixpkgs.config.allowUnfree = true;
 
-  dconf = {
-    enable = true;
-    settings = {
-      "org/gnome/desktop/interface" = {
-          color-scheme = "prefer-dark";
-      };
-    };
-  };
+  # dconf = {
+  #   enable = true;
+  #   settings = {
+  #     "org/gnome/desktop/interface" = {
+  #         color-scheme = "prefer-dark";
+  #         gtk-theme = "Adwaita-dark";
+  #     };
+  #   };
+  # };
 
   # gtk = {
-  #     enable = true;
-  #     theme = {
-  #         name = "Adwaita-dark";
-  #         package = pkgs.gnome.gnome-themes-extra;
-  #     };
+  #   enable = true;
+  #   theme = {
+  #     name = "Breeze-Dark";
+  #     package = pkgs.libsForQt5.breeze-gtk;
+  #   };
   # };
+
 }

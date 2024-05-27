@@ -71,6 +71,11 @@
   services.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
 
+  services.xserver.deviceSection = ''
+    Option "VirtualHeads" "1"
+  '';
+
+
   # Configure keymap in X11
   services.xserver = {
     xkb = { 
