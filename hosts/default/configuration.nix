@@ -230,6 +230,9 @@
     # Add any missing dynamic libraries for unpackaged programs
   ];
 
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
+
   # programs.dconf.enable = true;
   # xdg.portal = {
   #     enable = true;
