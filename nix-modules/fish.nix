@@ -15,6 +15,10 @@ in
     };
 
     config = lib.mkIf cfg.enable {
+      environment.systemPackages = [
+        pkgs.fish
+      ];
+
       programs.bash = {
           interactiveShellInit = ''
               if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
@@ -25,7 +29,7 @@ in
           '';
       };
 
-      home-manager.users."maticzpl" = {
+      home-manager.users."${cfg.username}" = {
           home.file = {
             ".config/fish/config.fish".text = ''
                   if status is-interactive

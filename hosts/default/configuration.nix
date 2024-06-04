@@ -9,16 +9,22 @@
       ./hardware-configuration.nix
     ];
 
-  userMods.softwareCenter.enable = true;
-  userMods.appimage.enable = true;
-  userMods.audio = {
+  userMods = {
+    softwareCenter.enable = true;
+    appimage.enable = true;
+    audio = {
+        enable = true;
+        calfConfig = "/home/maticzpl/Documents/calf/default-connected";
+    };
+    nld.enable = true;
+    fish = {
       enable = true;
-      calfConfig = "/home/maticzpl/Documents/calf/default-connected";
-  };
-  userMods.nld.enable = true;
-  userMods.fish = {
-    enable = true;
-    username = "maticzpl";
+      username = "maticzpl";
+    };
+    remoteDisplay = {
+      enable = true;
+      username = "maticzpl";
+    };
   };
 
   # Bootloader.
@@ -131,8 +137,8 @@
     neovim
     fd
     ripgrep
+    nixd
 
-    fish
     rustup
     gcc
     tree
@@ -140,7 +146,6 @@
     wl-clipboard
     unzip
     nodejs
-    nixd
 
     xdg-desktop-portal-kde
 
