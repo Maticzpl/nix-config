@@ -5,5 +5,6 @@
       ./app-image.nix
       ./audio.nix
       ./nix-ld.nix
+      ./fish.nix
     ];
 }

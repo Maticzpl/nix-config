@@ -7,7 +7,6 @@
   imports =
     [
       ./hardware-configuration.nix
-      inputs.home-manager.nixosModules.default
     ];
 
   userMods.softwareCenter.enable = true;
@@ -17,6 +16,7 @@
       calfConfig = "/home/maticzpl/Documents/calf/default-connected";
   };
   userMods.nld.enable = true;
+  userMods.fish.enable = true;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -68,11 +68,6 @@
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
-
-  services.xserver.deviceSection = ''
-    Option "VirtualHeads" "1"
-  '';
-
 
   # Configure keymap in X11
   services.xserver = {
@@ -157,16 +152,6 @@
   fonts.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "FiraCode" ]; })
   ];
-
-  programs.bash = {
-      interactiveShellInit = ''
-          if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
-          then
-              shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
-              exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
-          fi
-      '';
-  };
 
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;

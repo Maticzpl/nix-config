@@ -15,17 +15,20 @@
         };
     };
 
-    outputs = { self, nixpkgs, nix-ld, ... }@inputs: {
+    outputs = { self, nixpkgs, nix-ld, home-manager, ... }@inputs: {
         nixosConfigurations.default = nixpkgs.lib.nixosSystem {
             specialArgs = {inherit inputs;};
             modules = [ 
                 nix-ld.nixosModules.nix-ld
                 ./hosts/default/configuration.nix
                 ./nix-modules
-                inputs.home-manager.nixosModules.default
+                home-manager.nixosModules.home-manager
+                {
+                    home-manager.useGlobalPkgs = true;
+                    home-manager.users.maticzpl = import ./hosts/default/home.nix;
+                }
             ];
         };
 
-        homeManagerModules.default = "./home-manager-modules";
     };
 }

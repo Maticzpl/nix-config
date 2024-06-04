@@ -1,6 +1,12 @@
-{ config, pkgs, ... }:
+{ config, pkgs, outputs, ... }:
 
 {
+  imports = [
+    ../../home-manager-modules
+  ];
+
+  userMods.fish.enable = true;
+
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "maticzpl";
@@ -76,14 +82,6 @@
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
-
-    ".config/fish/config.fish".text = ''
-          if status is-interactive
-            fish_vi_key_bindings
-          end
-
-          zoxide init fish | source
-      '';
   };
 
   # Home Manager can also manage your environment variables through
