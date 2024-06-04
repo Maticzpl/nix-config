@@ -8,9 +8,6 @@
     [
       ./hardware-configuration.nix
       inputs.home-manager.nixosModules.default
-      ../../modules/software-center.nix
-      ../../modules/app-image.nix
-      ../../modules/audio.nix
     ];
 
   userMods.softwareCenter.enable = true;
@@ -19,6 +16,7 @@
       enable = true;
       calfConfig = "/home/maticzpl/Documents/calf/default-connected";
   };
+  userMods.nld.enable = true;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -151,18 +149,14 @@
     # gsettings-desktop-schemas
     gnome.adwaita-icon-theme
     gtk3
+    glib
+
+    plasma-browser-integration
   ];
 
   fonts.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "FiraCode" ]; })
   ];
-
-  home-manager = {
-    extraSpecialArgs = {inherit inputs;};
-    users = {
-        "maticzpl" = import ./home.nix;
-    };
-  };
 
   programs.bash = {
       interactiveShellInit = ''
@@ -173,62 +167,6 @@
           fi
       '';
   };
-
-  programs.nix-ld.enable = true;
-  programs.nix-ld.libraries = with pkgs; [
-      alsa-lib
-      at-spi2-atk
-      at-spi2-core
-      atk
-      cairo
-      cups
-      curl
-      dbus
-      expat
-      fontconfig
-      freetype
-      fuse3
-      gdk-pixbuf
-      glib
-      gtk3
-      icu
-      libGL
-      libappindicator-gtk3
-      libdrm
-      libglvnd
-      libnotify
-      libpulseaudio
-      libunwind
-      libusb1
-      libuuid
-      libxkbcommon
-      libxml2
-      mesa
-      nspr
-      nss
-      openssl
-      pango
-      pipewire
-      stdenv.cc.cc
-      systemd
-      vulkan-loader
-      xorg.libX11
-      xorg.libXScrnSaver
-      xorg.libXcomposite
-      xorg.libXcursor
-      xorg.libXdamage
-      xorg.libXext
-      xorg.libXfixes
-      xorg.libXi
-      xorg.libXrandr
-      xorg.libXrender
-      xorg.libXtst
-      xorg.libxcb
-      xorg.libxkbfile
-      xorg.libxshmfence
-      zlib
-    # Add any missing dynamic libraries for unpackaged programs
-  ];
 
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;

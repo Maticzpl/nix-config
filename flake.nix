@@ -21,9 +21,11 @@
             modules = [ 
                 nix-ld.nixosModules.nix-ld
                 ./hosts/default/configuration.nix
+                ./nix-modules
                 inputs.home-manager.nixosModules.default
-                # { programs.nix-ld.dev.enable = true; }
             ];
         };
+
+        homeManagerModules.default = "./home-manager-modules";
     };
 }

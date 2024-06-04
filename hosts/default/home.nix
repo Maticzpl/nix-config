@@ -39,6 +39,10 @@
     prismlauncher
     alvr
     wlx-overlay-s
+    bottles
+    spotdl
+    ytmdl
+    zoxide
 
     android-studio
     # # Adds the 'hello' command to your environment. It prints a friendly
@@ -77,6 +81,8 @@
           if status is-interactive
             fish_vi_key_bindings
           end
+
+          zoxide init fish | source
       '';
   };
 
