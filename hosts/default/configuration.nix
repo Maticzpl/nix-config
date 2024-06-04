@@ -16,7 +16,10 @@
       calfConfig = "/home/maticzpl/Documents/calf/default-connected";
   };
   userMods.nld.enable = true;
-  userMods.fish.enable = true;
+  userMods.fish = {
+    enable = true;
+    username = "maticzpl";
+  };
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;

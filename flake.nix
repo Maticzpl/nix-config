@@ -26,6 +26,7 @@
                 {
                     home-manager.useGlobalPkgs = true;
                     home-manager.users.maticzpl = import ./hosts/default/home.nix;
+                    home-manager.extraSpecialArgs = { inherit inputs; };
                 }
             ];
         };

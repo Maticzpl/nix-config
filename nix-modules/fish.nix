@@ -1,4 +1,4 @@
-{ lib, config, pkgs, ... }:
+{ lib, config, pkgs, home-manager, ... }:
 
 let
     cfg = config.userMods.fish;
@@ -7,6 +7,11 @@ in
 {
     options.userMods.fish = {
         enable = lib.mkEnableOption "enable user module";
+        username = lib.mkOption {
+            default = "";
+            type = lib.types.str;
+            description = "User for which to set the config.fish file";
+        };
     };
 
     config = lib.mkIf cfg.enable {
@@ -18,6 +23,18 @@ in
                   exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
               fi
           '';
+      };
+
+      home-manager.users."maticzpl" = {
+          home.file = {
+            ".config/fish/config.fish".text = ''
+                  if status is-interactive
+                    fish_vi_key_bindings
+                  end
+
+                  zoxide init fish | source
+              '';
+          };
       };
     };
 }
