@@ -17,6 +17,14 @@ in
     config = lib.mkIf cfg.enable {
         programs.hyprland.enable = true;
 
+        security.polkit.enable = true;
+
+        environment.variables = {
+            GTK_THEME = "Breeze-Dark";
+            QT_STYLE_OVERRIDE = "breeze";
+            GTK_ICON_THEME = "Papirus-Dark";
+        };
+
         home-manager.users."${cfg.username}" = {
             imports = [
                 inputs.hyprland.homeManagerModules.default
@@ -26,9 +34,17 @@ in
                 waybar
                 wofi
                 pavucontrol
+
+                dunst
+                # swayosd
+                anyrun
+                swww
                 # hyprlock
                 hyprpaper
+                waypaper
                 hyprland-workspaces
+                xdg-desktop-portal-hyprland
+                nwg-look
             ];
 
             wayland.windowManager.hyprland = {
@@ -40,14 +56,19 @@ in
                  "$mod" = "SUPER";
                  "$terminal" = "konsole";
                  "$fileManager" = "dolphin";
-                 "$menu" = "wofi --show drun";
+                 "$menu" = "anyrun";#"wofi --show drun";
 
                  monitor = [ 
                     "DP-2,1920x1080,0x0,1"
                     "DP-1,1280x800,400x1080,1"
                  ];
 
-                 exec-once = [ "waybar&" ];
+                 exec-once = [ 
+                    "waybar&"
+                    "dunst&"
+                    "swayosd&"
+                    "swww&"
+                 ];
 
                  env = [
                     "XCURSOR_SIZE,24"
@@ -113,22 +134,30 @@ in
 
                  bind = [
                    "$mod, F, exec, firefox"
-				   "$mod, Q, exec, $terminal"
-				   "$mod, C, killactive,"
-				   "$mod, M, exit,"
+				   "$mod, T, exec, $terminal"
 				   "$mod, E, exec, $fileManager"
-				   "$mod, V, togglefloating,"
+
 				   "$mod, R, exec, $menu"
 				   "$mod, P, pseudo, # dwindle"
-				   "$mod, J, togglesplit, # dwindle"
-				   "$mod, T, togglegroup,"
-				   "$mod, L, exec, hyprctl dispatch exit"
+				   "$mod, Escape, exit"
 
-                    # Move focus with mainMod + arrow keys
-				   "$mod, left, movefocus, l"
-				   "$mod, right, movefocus, r"
-				   "$mod, up, movefocus, u"
-				   "$mod, down, movefocus, d"
+				   "$mod, H, movefocus, l"
+				   "$mod, L, movefocus, r"
+				   "$mod, K, movefocus, u"
+				   "$mod, J, movefocus, d"
+
+				   "$mod SHIFT, F, togglefloating,"
+				   "$mod SHIFT, C, killactive,"
+				   "$mod SHIFT, G, togglegroup,"
+				   "$mod SHIFT, S, togglesplit,"
+
+				   "$mod SHIFT, H, movewindow, l"
+				   "$mod SHIFT, L, movewindow, r"
+				   "$mod SHIFT, K, movewindow, u"
+				   "$mod SHIFT, J, movewindow, d"
+
+				   "$mod Control_L, H, changegroupactive, b"
+				   "$mod Control_L, L, changegroupactive, f"
 
                     # Switch workspaces with mainMod + [0-9]
 				   "$mod, 1, workspace, 1"
@@ -154,18 +183,25 @@ in
 				   "$mod SHIFT, 9, movetoworkspace, 9"
 				   "$mod SHIFT, 0, movetoworkspace, 10"
 
+
                     # Example special workspace (scratchpad)
-				   "$mod, S, togglespecialworkspace, magic"
-				   "$mod SHIFT, S, movetoworkspace, special:magic"
+				   # "$mod, S, togglespecialworkspace, magic"
+				   # "$mod SHIFT, S, movetoworkspace, special:magic"
 
                     # Scroll through existing workspaces with mainMod + scroll
 				   "$mod, mouse_down, workspace, e+1"
 				   "$mod, mouse_up, workspace, e-1"
                  ];
-
                  bindm = [
                     "$mod, mouse:272, movewindow"
                     "$mod, mouse:273, resizewindow"
+                 ];
+                 bindel = [
+                    ",XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
+                    ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+                 ];
+                 bindl = [
+                    ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
                  ];
 
                  windowrulev2 = "suppressevent maximize, class:.*";
@@ -174,6 +210,28 @@ in
                   #inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars
               ];
             };
+
+            # home.file."~/.config/anyrun/config.ron".text = ''
+            #   Config(
+            #   x: Fraction(0.5),
+            #   y: Absolute(0),
+            #   width: Absolute(800),
+            #   height: Absolute(0),
+            #   hide_icons: false, 
+            #   ignore_exclusive_zones: false, 
+            #   layer: Overlay, 
+            #   hide_plugin_info: false, 
+            #   close_on_click: true,
+            #   show_results_immediately: false,
+            #   max_entries: None,
+            #   plugins: [
+            #     "libapplications.so",
+            #     "libsymbols.so",
+            #     "libshell.so",
+            #     "libtranslate.so",
+            #   ],
+            # )
+            # '';
         };
 
     };
