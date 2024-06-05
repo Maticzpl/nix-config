@@ -13,9 +13,15 @@
             url = "github:Mic92/nix-ld";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+
+        hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+        hyprland-plugins = {
+          url = "github:hyprwm/hyprland-plugins";
+          inputs.hyprland.follows = "hyprland";
+        };
     };
 
-    outputs = { self, nixpkgs, nix-ld, home-manager, ... }@inputs: {
+    outputs = { self, nixpkgs, nix-ld, home-manager, hyprland, ... }@inputs: {
         nixosConfigurations.default = nixpkgs.lib.nixosSystem {
             specialArgs = {inherit inputs;};
             modules = [ 

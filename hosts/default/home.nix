@@ -28,6 +28,7 @@
     (vesktop.override { withSystemVencord = false; })
     steam
     spotify
+    curlWithGnuTls
     spotify-tray
     bitwarden
     firefox
@@ -36,6 +37,7 @@
     git-graph
     fastfetch
     gnome.dconf-editor
+    obsidian
 
     bambu-studio
     filezilla

@@ -25,6 +25,10 @@
       enable = true;
       username = "maticzpl";
     };
+    hyprland = {
+      enable = true;
+      username = "maticzpl";
+    };
   };
 
   # Bootloader.

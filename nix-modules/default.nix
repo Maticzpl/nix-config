@@ -7,5 +7,6 @@
       ./nix-ld.nix
       ./fish.nix
       ./remote-display.nix
+      ./hyprland.nix
     ];
 }
