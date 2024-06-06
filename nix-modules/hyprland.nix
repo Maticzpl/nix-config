@@ -25,6 +25,54 @@ in
             GTK_ICON_THEME = "Papirus-Dark";
         };
 
+        services.xremap = {
+            withWlroots = true;
+        };
+
+        services.xremap.yamlConfig = ''
+        keymap:
+          - name: Hyprland nav
+            remap:
+              SUPER-SPACE: { set_mode: super }
+            mode: default
+
+          - name: Hyprland super nav
+            remap:
+              Esc: { set_mode: default }
+              SUPER-SPACE: { set_mode: default }
+
+              H: SUPER-H 
+              J: SUPER-J 
+              K: SUPER-K 
+              L: SUPER-L 
+
+              P: SUPER-CONTROL-H
+              N: SUPER-CONTROL-L
+
+              F: SUPER-F
+              T: SUPER-T
+              E: SUPER-E
+              R: SUPER-R
+
+              KEY_W:
+                remap:
+                  H: SUPER-SHIFT-H 
+                  J: SUPER-SHIFT-J 
+                  K: SUPER-SHIFT-K 
+                  L: SUPER-SHIFT-L 
+
+                  F: SUPER-SHIFT-F
+                  C: SUPER-SHIFT-C
+                  G: SUPER-SHIFT-G
+                  S: SUPER-SHIFT-S
+
+
+            mode: super
+
+        default_mode: default
+
+        '';
+
         home-manager.users."${cfg.username}" = {
             imports = [
                 inputs.hyprland.homeManagerModules.default
@@ -45,6 +93,7 @@ in
                 hyprland-workspaces
                 xdg-desktop-portal-hyprland
                 nwg-look
+                playerctl
             ];
 
             wayland.windowManager.hyprland = {
@@ -202,6 +251,9 @@ in
                  ];
                  bindl = [
                     ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+                    ",XF86AudioPlay, exec, playerctl -a play-pause" # uh firefox with nothning playing takes priority before spotify
+                    ",XF86AudioNext, exec, playerctl next"
+                    ",XF86AudioPrev, exec, playerctl previous"
                  ];
 
                  windowrulev2 = "suppressevent maximize, class:.*";

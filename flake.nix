@@ -19,6 +19,10 @@
           url = "github:hyprwm/hyprland-plugins";
           inputs.hyprland.follows = "hyprland";
         };
+
+        xremap-flake = {
+          url = "github:xremap/nix-flake";
+        };
     };
 
     outputs = { self, nixpkgs, nix-ld, home-manager, hyprland, ... }@inputs: {
@@ -34,6 +38,7 @@
                     home-manager.users.maticzpl = import ./hosts/default/home.nix;
                     home-manager.extraSpecialArgs = { inherit inputs; };
                 }
+                inputs.xremap-flake.nixosModules.default
             ];
         };
 

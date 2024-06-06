@@ -168,6 +168,11 @@
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
 
+  services.xremap = {
+      serviceMode = "user";
+      userName = "maticzpl";
+      #deviceNames = [ ];
+  };
   # programs.dconf.enable = true;
   # xdg.portal = {
   #     enable = true;
