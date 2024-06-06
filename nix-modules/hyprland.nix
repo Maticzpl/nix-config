@@ -32,42 +32,68 @@ in
         services.xremap.yamlConfig = ''
         keymap:
           - name: Hyprland nav
+            mode: default
             remap:
               SUPER-SPACE: { set_mode: super }
-            mode: default
 
           - name: Hyprland super nav
+            mode: super
             remap:
               Esc: { set_mode: default }
               SUPER-SPACE: { set_mode: default }
 
+              # Move cursor
               H: SUPER-H 
               J: SUPER-J 
               K: SUPER-K 
               L: SUPER-L 
 
+              # Move cursor in group
               P: SUPER-CONTROL-H
               N: SUPER-CONTROL-L
 
-              F: SUPER-F
-              T: SUPER-T
-              E: SUPER-E
-              R: SUPER-R
+              F: SUPER-F # Firefox
+              T: SUPER-T # Terminal
+              E: SUPER-E # File explorer
+              R: SUPER-R # Run
+
+              # WINDOWS!
 
               KEY_W:
                 remap:
+                  # Move window
                   H: SUPER-SHIFT-H 
                   J: SUPER-SHIFT-J 
                   K: SUPER-SHIFT-K 
                   L: SUPER-SHIFT-L 
 
-                  F: SUPER-SHIFT-F
-                  C: SUPER-SHIFT-C
-                  G: SUPER-SHIFT-G
-                  S: SUPER-SHIFT-S
+                  C: SUPER-SHIFT-C # Close
+                  G: SUPER-SHIFT-G # Group
+                  S: SUPER-SHIFT-S # Split change
+                  M: SUPER-SHIFT-M # Maximize
 
+                  F: 
+                    remap:
+                      L: SUPER-SHIFT-F         #FLoat
+                      S: SUPER-SHIFT-CONTROL-M #FullScreen
+                      F: SUPER-SHIFT-CONTROL-F #FullscreenFake
 
-            mode: super
+                  R:  
+                    remap:
+                      S: { set_mode: resize }
+
+          - name: Hyprland super nav resize
+            mode: resize
+            remap:
+              Esc: { set_mode: super }
+              Enter: { set_mode: super }
+
+              # Resize window
+              H: SUPER-SHIFT-LEFT 
+              J: SUPER-SHIFT-DOWN
+              K: SUPER-SHIFT-UP 
+              L: SUPER-SHIFT-RIGHT 
+
 
         default_mode: default
 
@@ -200,10 +226,19 @@ in
 				   "$mod SHIFT, G, togglegroup,"
 				   "$mod SHIFT, S, togglesplit,"
 
-				   "$mod SHIFT, H, movewindow, l"
-				   "$mod SHIFT, L, movewindow, r"
-				   "$mod SHIFT, K, movewindow, u"
-				   "$mod SHIFT, J, movewindow, d"
+				   "$mod SHIFT, M, fullscreen, 1"
+				   "$mod Control_L SHIFT, M, fullscreen, 0"
+				   "$mod Control_L SHIFT, F, fullscreen, 2"
+
+				   "$mod SHIFT, H, movewindoworgroup, l"
+				   "$mod SHIFT, L, movewindoworgroup, r"
+				   "$mod SHIFT, K, movewindoworgroup, u"
+				   "$mod SHIFT, J, movewindoworgroup, d"
+
+				   "$mod SHIFT, left, resizeactive, -10 0"
+				   "$mod SHIFT, right, resizeactive, 10 0"
+				   "$mod SHIFT, up, resizeactive, 0 -10"
+				   "$mod SHIFT, down, resizeactive, 0 10"
 
 				   "$mod Control_L, H, changegroupactive, b"
 				   "$mod Control_L, L, changegroupactive, f"
