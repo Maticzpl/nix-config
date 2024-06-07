@@ -26,6 +26,7 @@
     blender-hip
     kate
     (vesktop.override { withSystemVencord = false; })
+    obs-studio
     steam
     spotify
     curlWithGnuTls
@@ -49,6 +50,7 @@
     spotdl
     ytmdl
     zoxide
+    mpv
 
     android-studio
     # # Adds the 'hello' command to your environment. It prints a friendly
