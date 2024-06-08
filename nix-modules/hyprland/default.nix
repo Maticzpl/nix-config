@@ -2,9 +2,6 @@
 
 let
     cfg = config.userMods.hyprland;
-    color_special = ["hyprctl" "keyword" "general:col.active_border" "rgba(ff33ccee) rgba(aa00ffee) 45deg"];
-    color_resize = ["hyprctl" "keyword" "general:col.active_border" "rgba(ffcc33ee) rgba(ff9900ee) 45deg"];
-    color_default = ["hyprctl" "keyword" "general:col.active_border" "rgba(33ccffee) rgba(00ff99ee) 45deg"];
 in
 
 {
@@ -17,7 +14,13 @@ in
         };
     };
 
+    imports = [
+        ./xremap.nix
+    ];
+
     config = lib.mkIf cfg.enable {
+        userMods.hyprland.xremap.enable = lib.mkDefault true;
+
         programs.hyprland.enable = true;
 
         security.polkit.enable = true;
@@ -28,104 +31,6 @@ in
             GTK_ICON_THEME = "Papirus-Dark";
         };
 
-        services.xremap = {
-            withWlroots = true;
-        };
-
-
-        services.xremap.config.keymap = [
-            {
-                name = "Hyprland nav";
-                mode = "default";
-                remap = {
-                  "SUPER-SPACE" = [
-                    { set_mode = "super"; }
-                    { launch = color_special; }
-                  ];
-                };
-            }
-
-            {
-                name = "Hyprland super nav";
-                mode = "super";
-                remap = {
-                  "Esc" = [
-                    { set_mode = "default"; }
-                    { launch = color_default; }
-                  ];
-                  "SUPER-SPACE" = [
-                    { set_mode = "default"; }
-                    { launch = color_default; }
-                  ];
-
-                  # Move cursor
-                  "H" = "SUPER-H";
-                  "J" = "SUPER-J";
-                  "K" = "SUPER-K";
-                  "L" = "SUPER-L";
-
-                  # Move cursor in group
-                  "P" = "SUPER-CONTROL-H";
-                  "N" = "SUPER-CONTROL-L";
-
-                  "F" = "SUPER-F"; # Firefox
-                  "T" = "SUPER-T"; # Terminal
-                  "E" = "SUPER-E"; # File explorer
-                  "R" = [ 
-                    { "set_mode" = "default"; }
-                    { launch = color_default; }
-                    "SUPER-R"
-                  ]; # Run
-
-                  "KEY_W".remap = {
-                    "H" = "SUPER-SHIFT-H"; 
-                    "J" = "SUPER-SHIFT-J";
-                    "K" = "SUPER-SHIFT-K";
-                    "L" = "SUPER-SHIFT-L";
-
-                    "C" = "SUPER-SHIFT-C"; # Close
-                    "G" = "SUPER-SHIFT-G"; # Group
-                    "S" = "SUPER-SHIFT-S"; # Split change
-                    "M" = "SUPER-SHIFT-M"; # Maximize
-
-                    "F".remap = {
-                      "L" = "SUPER-SHIFT-F";         #FLoat
-                      "S" = "SUPER-SHIFT-CONTROL-M"; #FullScreen
-                      "F" = "SUPER-SHIFT-CONTROL-F"; #FullscreenFake
-                    };
-
-                    "R".remap = {
-                      "S" = [
-                        { "set_mode" = "resize"; }
-                        { launch = color_resize; }
-                      ];
-                    };
-                  };
-                };
-            }
-
-            {
-                name = "Hyprland super nav resize";
-                mode = "resize";
-                remap = {
-                  "Esc" = [
-                    { "set_mode" = "super"; }
-                    { launch = color_special; }
-                  ];
-                  "Enter" = [
-                    { "set_mode" = "super"; }
-                    { launch = color_special; }
-                  ];
-
-                  # Resize window
-                  "H" = "SUPER-SHIFT-LEFT";
-                  "J" = "SUPER-SHIFT-DOWN";
-                  "K" = "SUPER-SHIFT-UP"; 
-                  "L" = "SUPER-SHIFT-RIGHT"; 
-                };
-            }
-        ];
-
         environment.systemPackages = with pkgs; [
             xdg-desktop-portal-hyprland
             xdg-desktop-portal-gtk
@@ -134,7 +39,6 @@ in
 
         xdg.portal = {
             enable = true;
-            wlr.enable = true;
             extraPortals = [
                 pkgs.xdg-desktop-portal-gtk
                 pkgs.xdg-desktop-portal-hyprland
@@ -182,13 +86,15 @@ in
                  monitor = [ 
                     "DP-2,1920x1080,0x0,1"
                     "DP-1,1280x800,400x1080,1"
-                 ];
+                    "HDMI-A-1,1920x1080,1920x0,1"
+                 ]; 
 
                  exec-once = [ 
                     "waybar&"
                     "dunst&"
                     "swayosd&"
                     "swww&"
+                    "systemctl --user restart xremap"
                  ];
 
                  env = [
@@ -210,6 +116,21 @@ in
                     allow_tearing = false;
 
                     layout = "dwindle";
+                 };
+
+                 group = {
+                    "col.border_active" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
+                    "col.border_inactive" = "rgba(595959aa)";
+
+                    groupbar = {
+                       gradients = true;
+                       # "col.active" = "rgba(00ffd3ee) rgba(33aaffee) 88deg"; 
+                       # "col.inactive" = "rgba(496a81ee) rgba(498278ee) 88deg"; 
+                    };
+                 };
+
+                 misc = {
+                    disable_hyprland_logo = true;
                  };
 
                  decoration = {
@@ -271,6 +192,7 @@ in
 				   "$mod SHIFT, C, killactive,"
 				   "$mod SHIFT, G, togglegroup,"
 				   "$mod SHIFT, S, togglesplit,"
+				   "$mod SHIFT, U, focusurgentorlast,"
 
 				   "$mod SHIFT, M, fullscreen, 1"
 				   "$mod Control_L SHIFT, M, fullscreen, 0"
