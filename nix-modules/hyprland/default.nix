@@ -27,15 +27,18 @@ in
 
         environment.variables = {
             GTK_THEME = "Breeze-Dark";
-            QT_STYLE_OVERRIDE = "breeze";
+            QT_STYLE_OVERRIDE = "Breeze";
             GTK_ICON_THEME = "Papirus-Dark";
         };
 
         environment.systemPackages = with pkgs; [
             xdg-desktop-portal-hyprland
             xdg-desktop-portal-gtk
+            lxqt.lxqt-policykit
             #xdg-desktop-portal
         ];
+
+        xdg.mime.enable = true;
 
         xdg.portal = {
             enable = true;
@@ -46,9 +49,13 @@ in
             xdgOpenUsePortal = true;
             config = {
                 common.default = ["gtk"];
-                hyprland.default = ["gtk" "hyprland"];
+                hyprland.default = ["gtk" "hyprland" "*"];
             };
         };
+
+        fonts.packages = with pkgs; [
+            noto-fonts
+        ];
 
         home-manager.users."${cfg.username}" = {
             imports = [
@@ -58,7 +65,6 @@ in
             home.packages = with pkgs; [
                 waybar
                 wofi
-                pavucontrol
 
                 dunst
                 # swayosd
@@ -66,10 +72,22 @@ in
                 swww
                 # hyprlock
                 hyprpaper
-                waypaper
-                hyprland-workspaces
-                nwg-look
+                #hyprland-workspaces
                 playerctl
+                breeze-qt5
+                breeze-gtk
+
+                # Screenshots
+                satty
+                grim
+                slurp
+
+                hyprnome
+
+                waypaper
+                nwg-look
+                pavucontrol
+                dolphin
             ];
 
             wayland.windowManager.hyprland = {
@@ -94,7 +112,9 @@ in
                     "dunst&"
                     "swayosd&"
                     "swww&"
-                    "systemctl --user restart xremap"
+                    "sleep 5 && systemctl --user restart xremap"
+                    "systemctl --user import-environment PATH && systemctl --user restart xdg-desktop-portal.service"
+                    "lxqt-polictykit-agent"
                  ];
 
                  env = [
@@ -211,29 +231,34 @@ in
 				   "$mod Control_L, H, changegroupactive, b"
 				   "$mod Control_L, L, changegroupactive, f"
 
-                    # Switch workspaces with mainMod + [0-9]
-				   "$mod, 1, workspace, 1"
-				   "$mod, 2, workspace, 2"
-				   "$mod, 3, workspace, 3"
-				   "$mod, 4, workspace, 4"
-				   "$mod, 5, workspace, 5"
-				   "$mod, 6, workspace, 6"
-				   "$mod, 7, workspace, 7"
-				   "$mod, 8, workspace, 8"
-				   "$mod, 9, workspace, 9"
-				   "$mod, 0, workspace, 10"
+                   "$mod, 1, exec, hyprnome --previous"
+                   "$mod, 2, exec, hyprnome"
+                   "$mod SHIFT, 1, exec, hyprnome --previous --move"
+                   "$mod SHIFT, 2, exec, hyprnome --move"
 
-                    # Move active window to a workspace with mainMod + SHIFT + [0-9]
-				   "$mod SHIFT, 1, movetoworkspace, 1"
-				   "$mod SHIFT, 2, movetoworkspace, 2"
-				   "$mod SHIFT, 3, movetoworkspace, 3"
-				   "$mod SHIFT, 4, movetoworkspace, 4"
-				   "$mod SHIFT, 5, movetoworkspace, 5"
-				   "$mod SHIFT, 6, movetoworkspace, 6"
-				   "$mod SHIFT, 7, movetoworkspace, 7"
-				   "$mod SHIFT, 8, movetoworkspace, 8"
-				   "$mod SHIFT, 9, movetoworkspace, 9"
-				   "$mod SHIFT, 0, movetoworkspace, 10"
+                    # Switch workspaces with mainMod + [0-9]
+				   # "$mod, 1, workspace, 1"
+				   # "$mod, 2, workspace, 2"
+				   # "$mod, 3, workspace, 3"
+				   # "$mod, 4, workspace, 4"
+				   # "$mod, 5, workspace, 5"
+				   # "$mod, 6, workspace, 6"
+				   # "$mod, 7, workspace, 7"
+				   # "$mod, 8, workspace, 8"
+				   # "$mod, 9, workspace, 9"
+				   # "$mod, 0, workspace, 10"
+							#
+       #              # Move active window to a workspace with mainMod + SHIFT + [0-9]
+				   # "$mod SHIFT, 1, movetoworkspace, 1"
+				   # "$mod SHIFT, 2, movetoworkspace, 2"
+				   # "$mod SHIFT, 3, movetoworkspace, 3"
+				   # "$mod SHIFT, 4, movetoworkspace, 4"
+				   # "$mod SHIFT, 5, movetoworkspace, 5"
+				   # "$mod SHIFT, 6, movetoworkspace, 6"
+				   # "$mod SHIFT, 7, movetoworkspace, 7"
+				   # "$mod SHIFT, 8, movetoworkspace, 8"
+				   # "$mod SHIFT, 9, movetoworkspace, 9"
+				   # "$mod SHIFT, 0, movetoworkspace, 10"
 
 
                     # Example special workspace (scratchpad)
@@ -243,6 +268,8 @@ in
                     # Scroll through existing workspaces with mainMod + scroll
 				   "$mod, mouse_down, workspace, e+1"
 				   "$mod, mouse_up, workspace, e-1"
+
+                   ",Print, exec, grim - | satty --filename - --fullscreen --output-filename ~/Pictures/Screenshots/satty-$(date '+%Y%m%d-%H:%M:%S').png"
                  ];
                  bindm = [
                     "$mod, mouse:272, movewindow"

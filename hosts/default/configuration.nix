@@ -55,6 +55,12 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [ 9943 9944 ];
+    allowedUDPPorts = [ 9943 9944 ];
+  };
+
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Set your time zone.
@@ -79,8 +85,12 @@
   services.xserver.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
-  services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
+  services.displayManager.sddm.enable = false;
+  services.xserver.displayManager.gdm = {
+    enable = true;
+    wayland = true;
+  };
+  services.desktopManager.plasma6.enable = false;
 
   # Configure keymap in X11
   services.xserver = {
@@ -171,13 +181,13 @@
   services.xremap = {
       serviceMode = "user";
       userName = "maticzpl";
+      config.keymap = [];
       #deviceNames = [ ];
   };
   # programs.dconf.enable = true;
   # xdg.portal = {
   #     enable = true;
   #     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-  #     wlr.enable = true;
   # };
   # environment.variables.XDG_DATA_DIRS = [ "${pkgs.spotify}/share/gsettings-schemas/${pkgs.spotify.name}" ];
 

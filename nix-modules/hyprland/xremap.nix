@@ -57,6 +57,10 @@ in
                   "K" = "SUPER-K";
                   "L" = "SUPER-L";
 
+                  # Move to workspaces
+                  "1" = "SUPER-1";
+                  "2" = "SUPER-2";
+
                   # Move cursor in group
                   "P" = "SUPER-CONTROL-H";
                   "N" = "SUPER-CONTROL-L";
@@ -70,6 +74,10 @@ in
                   ] ++ color_default; # Run
 
                   "KEY_W".remap = {
+                    # Move to workspaces
+                    "1" = "SUPER-SHIFT-1";
+                    "2" = "SUPER-SHIFT-2";
+
                     "H" = "SUPER-SHIFT-H"; 
                     "J" = "SUPER-SHIFT-J";
                     "K" = "SUPER-SHIFT-K";
