@@ -60,6 +60,7 @@ in
                   # Move to workspaces
                   "1" = "SUPER-1";
                   "2" = "SUPER-2";
+                  "Q" = "SUPER-Q"; # Special
 
                   # Move cursor in group
                   "P" = "SUPER-CONTROL-H";
@@ -77,6 +78,7 @@ in
                     # Move to workspaces
                     "1" = "SUPER-SHIFT-1";
                     "2" = "SUPER-SHIFT-2";
+                    "Q" = "SUPER-SHIFT-Q"; # Special
 
                     "H" = "SUPER-SHIFT-H"; 
                     "J" = "SUPER-SHIFT-J";
@@ -119,6 +121,73 @@ in
                   "J" = "SUPER-SHIFT-DOWN";
                   "K" = "SUPER-SHIFT-UP"; 
                   "L" = "SUPER-SHIFT-RIGHT"; 
+                };
+            }
+
+            {
+                name = "Spotify";
+                application = {
+                  only = "Spotify";
+                };
+                mode = "default";
+
+                remap = {
+                  "SPACE" = { "set_mode" = "spotify"; };
+                };
+            }
+            {
+                name = "Spotify Input";
+                application = {
+                  only = "Spotify";
+                };
+                mode = "spotifyInput";
+
+                remap = {
+                  "Enter" = [
+                    { "set_mode" = "spotify"; }
+                    "TAB" "TAB" "TAB" "DOWN" "UP"
+                  ];
+                  "Esc" = { "set_mode" = "default"; };
+                };
+            }
+            {
+                name = "Spotify special";
+                mode = "spotify";
+                application = {
+                  only = "Spotify";
+                };
+                remap = {
+                  "Esc" = { "set_mode" = "default"; };
+
+                  "H" = "LEFT";
+                  "J" = "DOWN";
+                  "K" = "UP"; 
+                  "L" = "RIGHT"; 
+
+                  "F" = "SHIFT-RIGHT"; # Forward
+                  "B" = "SHIFT-LEFT"; # Backwards
+
+                  "N" = "CTRL-RIGHT"; # Next song
+                  "P" = "CTRL-LEFT"; # Previous song
+
+                  "S" = "CTRL-S"; # Shuffle
+                  "R" = "CTRL-R"; # Repeat
+
+                  "T" = "ALT-SHIFT-R"; # Toggle sidebar
+
+                  # Navigate (Go)
+                  "G".remap = {
+                      "H" = "ALT-SHIFT-H"; # Home
+                      "P" = [
+                        "ALT-SHIFT-H"
+                        "CTRL-ALT-F" # Playlists
+                        { "set_mode" = "spotifyInput"; }
+                      ];
+                      "S" = [
+                        "CTRL-K"
+                        { "set_mode" = "spotifyInput"; }
+                      ]; # Quick Search
+                  };
                 };
             }
         ];

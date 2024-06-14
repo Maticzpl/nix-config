@@ -30,7 +30,6 @@
     steam
     spotify
     curlWithGnuTls
-    spotify-tray
     bitwarden
     firefox
     flatpak

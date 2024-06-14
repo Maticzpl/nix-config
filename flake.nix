@@ -23,6 +23,10 @@
         xremap-flake = {
           url = "github:xremap/nix-flake";
         };
+
+        ags = {
+          url = "github:Aylur/ags";
+        };
     };
 
     outputs = { self, nixpkgs, nix-ld, home-manager, hyprland, ... }@inputs: {

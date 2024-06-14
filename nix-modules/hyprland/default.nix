@@ -16,10 +16,15 @@ in
 
     imports = [
         ./xremap.nix
+        ./ags
     ];
 
     config = lib.mkIf cfg.enable {
         userMods.hyprland.xremap.enable = lib.mkDefault true;
+        userMods.hyprland.ags = {
+            enable = lib.mkDefault true;
+            username = lib.mkDefault cfg.username;
+        };
 
         programs.hyprland.enable = true;
 
@@ -88,6 +93,7 @@ in
                 nwg-look
                 pavucontrol
                 dolphin
+                units
             ];
 
             wayland.windowManager.hyprland = {
@@ -108,13 +114,14 @@ in
                  ]; 
 
                  exec-once = [ 
-                    "waybar&"
-                    "dunst&"
-                    "swayosd&"
-                    "swww&"
+                    "waybar"
+                    "dunst"
+                    "swayosd"
+                    "swww"
                     "sleep 5 && systemctl --user restart xremap"
                     "systemctl --user import-environment PATH && systemctl --user restart xdg-desktop-portal.service"
                     "lxqt-polictykit-agent"
+                    "swww-daemon && sleep 2 && swww img ~/Pictures/wallpapers/2022-01-08-00-03-18.png"
                  ];
 
                  env = [
@@ -235,8 +242,11 @@ in
                    "$mod, 2, exec, hyprnome"
                    "$mod SHIFT, 1, exec, hyprnome --previous --move"
                    "$mod SHIFT, 2, exec, hyprnome --move"
+                    # Example special workspace (scratchpad)
+				   "$mod, Q, togglespecialworkspace, magic"
+				   "$mod SHIFT, Q, movetoworkspace, special:magic"
 
-                    # Switch workspaces with mainMod + [0-9]
+                    # Switch workspaces with mainMod + [-1-9]
 				   # "$mod, 1, workspace, 1"
 				   # "$mod, 2, workspace, 2"
 				   # "$mod, 3, workspace, 3"
@@ -261,9 +271,6 @@ in
 				   # "$mod SHIFT, 0, movetoworkspace, 10"
 
 
-                    # Example special workspace (scratchpad)
-				   # "$mod, S, togglespecialworkspace, magic"
-				   # "$mod SHIFT, S, movetoworkspace, special:magic"
 
                     # Scroll through existing workspaces with mainMod + scroll
 				   "$mod, mouse_down, workspace, e+1"
