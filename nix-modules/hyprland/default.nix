@@ -39,6 +39,8 @@ in
         environment.systemPackages = with pkgs; [
             xdg-desktop-portal-hyprland
             xdg-desktop-portal-gtk
+            breeze-gtk
+            breeze-qt5
             lxqt.lxqt-policykit
             #xdg-desktop-portal
         ];
@@ -68,7 +70,6 @@ in
             ];
 
             home.packages = with pkgs; [
-                waybar
                 wofi
 
                 dunst
@@ -79,8 +80,6 @@ in
                 hyprpaper
                 #hyprland-workspaces
                 playerctl
-                breeze-qt5
-                breeze-gtk
 
                 # Screenshots
                 satty
@@ -92,7 +91,9 @@ in
                 waypaper
                 nwg-look
                 pavucontrol
-                dolphin
+                # dolphin
+                gnome.nautilus
+                gnome.file-roller
                 units
             ];
 
@@ -104,7 +105,7 @@ in
               settings = {
                  "$mod" = "SUPER";
                  "$terminal" = "konsole";
-                 "$fileManager" = "dolphin";
+                 "$fileManager" = "nautilus";
                  "$menu" = "anyrun";#"wofi --show drun";
 
                  monitor = [ 
@@ -114,14 +115,13 @@ in
                  ]; 
 
                  exec-once = [ 
-                    "waybar"
                     "dunst"
                     "swayosd"
                     "swww"
                     "sleep 5 && systemctl --user restart xremap"
                     "systemctl --user import-environment PATH && systemctl --user restart xdg-desktop-portal.service"
-                    "lxqt-polictykit-agent"
                     "swww-daemon && sleep 2 && swww img ~/Pictures/wallpapers/2022-01-08-00-03-18.png"
+                    "lxqt-policykit-agent"
                  ];
 
                  env = [
@@ -131,7 +131,7 @@ in
 
                  general = {
                     gaps_in = 5;
-                    gaps_out = 20;
+                    gaps_out = 10;
 
                     border_size = 2;
 
@@ -190,7 +190,7 @@ in
                  };
 
                  master = {
-                    new_is_master = true;
+                    # new_is_master = true;
                  };
 
                  input = {
@@ -293,7 +293,11 @@ in
                     ",XF86AudioPrev, exec, playerctl previous"
                  ];
 
-                 windowrulev2 = "suppressevent maximize, class:.*";
+                 windowrulev2 = [
+                    "suppressevent maximize, class:.*"
+                    "workspace special:magic silent, class:(calfjackhost|qpwgraph)"
+                    "float,title:(Picture-in-Picture)"
+                 ];
                };
               plugins = [
                   #inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars

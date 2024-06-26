@@ -28,6 +28,9 @@ mkShell {
     libuuid
     libxkbcommon
     libxml2
+    libva
+    libvdpau
+    ffmpeg_5
     mesa
     nspr
     nss

@@ -1,0 +1,90 @@
+@define-color bar-bg alpha(#222222, 0.5);
+@define-color bar-bg-ligher alpha(#999, 0.8);
+
+.bar {
+    margin: 10px;
+    margin-bottom: 0px;
+
+    background-color: alpha(@bar-bg, 0.5);
+    border-radius: 12px;
+    padding: 3px;
+}
+
+.workspaces {
+    background-color: @bar-bg;
+    border-radius: 12px;
+
+    padding: 5px;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.workspaces button {
+    background: @bar-bg;
+    padding-top: 0;
+    padding-bottom: 0;
+    border: 2px solid transparent;
+    border-radius: 10px;
+
+    transition-duration: 0.3s;
+}
+
+.workspaces button.focused {
+    background: #444444;
+    border: 2px solid #555555;
+}
+
+.workspaces button:hover {
+    background: #555555;
+}
+
+.tray {
+    background-color: @bar-bg;
+    border-radius: 12px;
+
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.tray button {
+    /* margin: 5px; */
+    margin-right: 3px;
+    margin-left: 3px;
+    padding: 0;
+    border: solid 3px transparent;
+    border-radius: 50%;
+    background: none;
+
+    transition-duration: 0.3s;
+}
+
+.tray button icon {
+    border-radius: 50%;
+}
+
+.tray button:hover {
+    background: @bar-bg-ligher;
+    border: solid 3px @bar-bg-ligher;
+}
+
+.time {
+    padding: 0;
+    margin: 0;
+    font-size: 16px;
+}
+
+.date {
+    padding: 0;
+    margin: 0;
+    font-size: 16px;
+}
+
+.timedate { 
+    background-color: @bar-bg;
+    border-radius: 12px;
+
+    padding: 5px;
+    padding-left: 8px;
+    padding-right: 8px;
+
+}

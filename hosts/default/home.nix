@@ -38,18 +38,25 @@
     fastfetch
     gnome.dconf-editor
     obsidian
+    tldr
+    htop
 
     bambu-studio
     filezilla
     protonup-qt
     prismlauncher
-    alvr
     wlx-overlay-s
     bottles
     spotdl
     ytmdl
     zoxide
     mpv
+    calibre
+    imhex
+
+    gimp
+    protontricks
+    wlx-overlay-s
 
     android-studio
     # # Adds the 'hello' command to your environment. It prints a friendly

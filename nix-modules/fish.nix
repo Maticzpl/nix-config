@@ -20,7 +20,7 @@ in
       ];
 
       programs.bash = {
-          interactiveShellInit = ''
+          interactiveShellInit = /*bash*/ ''
               if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
               then
                   shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
@@ -31,7 +31,7 @@ in
 
       home-manager.users."${cfg.username}" = {
           home.file = {
-            ".config/fish/config.fish".text = ''
+            ".config/fish/config.fish".text = /*bash*/ ''
                   if status is-interactive
                     fish_vi_key_bindings
                   end

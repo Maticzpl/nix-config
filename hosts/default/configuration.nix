@@ -39,10 +39,19 @@
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  #fileSystems."/run/media/2TB" = {
+  #  device = "/dev/sdc1";
+  #  label = "2TB";
+  #  fsType = "ntfs";
+  #};
+
   hardware.opengl = {
       enable = true;
       driSupport = true;
       driSupport32Bit = true;
+      extraPackages = with pkgs; [
+        libvdpau-va-gl
+      ];
   };
 
   networking.hostName = "mati-nixos"; # Define your hostname.
@@ -170,6 +179,11 @@
 
     plasma-browser-integration
   ];
+
+  programs.alvr = {
+      enable = true;
+      openFirewall = true;
+  };
 
   fonts.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "FiraCode" ]; })
