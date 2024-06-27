@@ -2,13 +2,16 @@
 @define-color bar-bg-ligher alpha(#999, 0.8);
 
 .bar {
-    margin: 10px;
-    margin-bottom: 0px;
+    /* margin: 10px; */
+    /* margin-bottom: 0px; */
 
     background-color: alpha(@bar-bg, 0.5);
-    border-radius: 12px;
+    /* border-radius: 12px; */
     padding: 3px;
+    padding-right: 10px;
+    padding-left: 10px;
 }
+
 
 .workspaces {
     background-color: @bar-bg;
@@ -37,6 +40,7 @@
 .workspaces button:hover {
     background: #555555;
 }
+
 
 .tray {
     background-color: @bar-bg;
@@ -67,6 +71,7 @@
     border: solid 3px @bar-bg-ligher;
 }
 
+
 .time {
     padding: 0;
     margin: 0;
@@ -86,5 +91,25 @@
     padding: 5px;
     padding-left: 8px;
     padding-right: 8px;
+}
 
+.timedate-button {
+    padding: 0;
+    margin: 0;
+
+    background: none;
+    border: none
+}
+
+.popup-calendar {
+    border-radius: 12px;
+    background: alpha(@bar-bg, 0.8);
+}
+
+
+.volume {
+    background-color: @bar-bg;
+    border-radius: 12px;
+
+    padding-left: 5px;
 }
