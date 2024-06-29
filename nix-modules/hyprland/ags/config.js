@@ -18,11 +18,14 @@ function addBar(monitor = 0, alwaysVisible = false) {
 
         return Widget.Box({
             class_name: "tray",
-            children: trayItems
+            children: trayItems,
+            visible: systemtray.bind("items").as(items => items.length != 0)
         })
     }
 
     function Workspaces() {
+        // let workspaceCount = Variable(0);
+
         const activeId = hyprland.active.workspace.bind("id")
         const workspaces = hyprland.bind("workspaces").as(ws => {
             let buttons = [];
@@ -37,6 +40,7 @@ function addBar(monitor = 0, alwaysVisible = false) {
                     }));
                 }
             }
+            // workspaceCount.value = buttons.length;
             return buttons;
         });
 
@@ -44,6 +48,7 @@ function addBar(monitor = 0, alwaysVisible = false) {
             class_name: "workspaces",
             spacing: 3,
             children: workspaces,
+            // visible: workspaceCount.bind().as(c => c > 1)
         });
     }
 

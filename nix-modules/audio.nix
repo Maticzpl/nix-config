@@ -29,6 +29,11 @@ in
                         args = "module-null-sink media.class=Audio/Sink sink_name=precalf channel_map=stereo";
                         flags = [];
                     }
+                    {
+                        cmd = "load-module";
+                        args = "module-null-sink media.class=Audio/Sink sink_name=fakemic channel_map=stereo";
+                        flags = [];
+                    }
                 ];
             };
         };

@@ -53,6 +53,7 @@
     mpv
     calibre
     imhex
+    mission-center
 
     gimp
     protontricks
