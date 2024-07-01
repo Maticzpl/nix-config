@@ -40,7 +40,7 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   fileSystems."/run/media/2TB" = {
-      device = "/dev/sdc1";
+      device = "/dev/disk/by-uuid/4A6F7D92010874C7";
       label = "2TB";
       fsType = "ntfs";
   };
