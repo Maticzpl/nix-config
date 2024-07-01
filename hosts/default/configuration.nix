@@ -39,11 +39,11 @@
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  #fileSystems."/run/media/2TB" = {
-  #  device = "/dev/sdc1";
-  #  label = "2TB";
-  #  fsType = "ntfs";
-  #};
+  fileSystems."/run/media/2TB" = {
+      device = "/dev/sdc1";
+      label = "2TB";
+      fsType = "ntfs";
+  };
 
   hardware.opengl = {
       enable = true;

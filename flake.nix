@@ -27,6 +27,12 @@
         ags = {
           url = "github:Aylur/ags";
         };
+
+        anyrun = {
+            url = "github:anyrun-org/anyrun";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+
     };
 
     outputs = { self, nixpkgs, nix-ld, home-manager, hyprland, ... }@inputs: {

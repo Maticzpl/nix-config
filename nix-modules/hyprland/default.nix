@@ -17,6 +17,8 @@ in
     imports = [
         ./xremap.nix
         ./ags
+        ./anyrun.nix
+        ./hyprlock.nix
     ];
 
     config = lib.mkIf cfg.enable {
@@ -25,8 +27,23 @@ in
             enable = lib.mkDefault true;
             username = lib.mkDefault cfg.username;
         };
+        userMods.hyprland.anyrun = {
+            enable = lib.mkDefault true;
+            username = lib.mkDefault cfg.username;
+        };
+        userMods.hyprland.hyprlock = {
+            enable = lib.mkDefault true;
+            username = lib.mkDefault cfg.username;
+            wallpaper = lib.mkDefault "/home/maticzpl/Pictures/wallpapers/2023-01-07-15-49-24.png";
+            mainMonitor = lib.mkDefault "DP-2";
+        };
 
         programs.hyprland.enable = true;
+
+        nix.settings = {
+            substituters = ["https://hyprland.cachix.org"];
+            trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
+        };
 
         security.polkit.enable = true;
 
@@ -70,15 +87,8 @@ in
             ];
 
             home.packages = with pkgs; [
-                wofi
-
-                dunst
-                # swayosd
-                anyrun
                 swww
-                # hyprlock
                 hyprpaper
-                #hyprland-workspaces
                 playerctl
 
                 # Screenshots
@@ -91,7 +101,6 @@ in
                 waypaper
                 nwg-look
                 pavucontrol
-                # dolphin
                 gnome.nautilus
                 gnome.file-roller
                 units
@@ -115,7 +124,7 @@ in
                  ]; 
 
                  exec-once = [ 
-                    "dunst"
+                    # "dunst"
                     "swayosd"
                     "swww"
                     "sleep 5 && systemctl --user restart xremap"
@@ -208,7 +217,7 @@ in
 
 				   "$mod, R, exec, $menu"
 				   "$mod, P, pseudo, # dwindle"
-				   "$mod, Escape, exit"
+				   "$mod SHIFT, Escape, exit"
 
 				   "$mod, H, movefocus, l"
 				   "$mod, L, movefocus, r"
@@ -258,7 +267,7 @@ in
 				   # "$mod, 9, workspace, 9"
 				   # "$mod, 0, workspace, 10"
 							#
-       #              # Move active window to a workspace with mainMod + SHIFT + [0-9]
+                   # Move active window to a workspace with mainMod + SHIFT + [0-9]
 				   # "$mod SHIFT, 1, movetoworkspace, 1"
 				   # "$mod SHIFT, 2, movetoworkspace, 2"
 				   # "$mod SHIFT, 3, movetoworkspace, 3"
@@ -303,28 +312,6 @@ in
                   #inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars
               ];
             };
-
-            # home.file."~/.config/anyrun/config.ron".text = ''
-            #   Config(
-            #   x: Fraction(0.5),
-            #   y: Absolute(0),
-            #   width: Absolute(800),
-            #   height: Absolute(0),
-            #   hide_icons: false, 
-            #   ignore_exclusive_zones: false, 
-            #   layer: Overlay, 
-            #   hide_plugin_info: false, 
-            #   close_on_click: true,
-            #   show_results_immediately: false,
-            #   max_entries: None,
-            #   plugins: [
-            #     "libapplications.so",
-            #     "libsymbols.so",
-            #     "libshell.so",
-            #     "libtranslate.so",
-            #   ],
-            # )
-            # '';
         };
 
     };
