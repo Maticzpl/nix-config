@@ -47,7 +47,7 @@
     prismlauncher
     wlx-overlay-s
     bottles
-    spotdl
+    # spotdl # broken after update?
     ytmdl
     zoxide
     mpv
