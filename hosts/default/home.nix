@@ -1,5 +1,7 @@
-{ config, pkgs, outputs, ... }:
-
+{ config, pkgs, inputs, ... }:
+let
+    stable = import inputs.nixpkgs-stable { system = pkgs.system; config.allowUnfree = true; };
+in
 {
   imports = [
     ../../home-manager-modules
@@ -21,13 +23,14 @@
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = with pkgs; [
+  home.packages = (with pkgs; [
     papirus-icon-theme
     blender-hip
     kate
     (vesktop.override { withSystemVencord = false; })
     obs-studio
     steam
+
     spotify
     curlWithGnuTls
     bitwarden
@@ -76,7 +79,10 @@
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
-  ];
+  ]) ++ 
+  (with stable; [
+    # steam
+  ]);
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.

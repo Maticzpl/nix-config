@@ -45,6 +45,11 @@
       fsType = "ntfs";
   };
 
+  # hardware.opengl = {
+  #     driSupport = true;
+  #     driSupport32Bit = true;
+  # };
+
   hardware.graphics = {
       enable = true;
       extraPackages = with pkgs; [

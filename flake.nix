@@ -3,6 +3,7 @@
 
     inputs = {
         nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+        nixpkgs-stable.url = "github:nixos/nixpkgs?ref=nixos-24.05";
 
         home-manager = {
             url = "github:nix-community/home-manager";
@@ -37,7 +38,9 @@
 
     outputs = { self, nixpkgs, nix-ld, home-manager, hyprland, ... }@inputs: {
         nixosConfigurations.default = nixpkgs.lib.nixosSystem {
-            specialArgs = {inherit inputs;};
+            specialArgs = {
+                inherit inputs;
+            };
             modules = [ 
                 nix-ld.nixosModules.nix-ld
                 ./hosts/default/configuration.nix
