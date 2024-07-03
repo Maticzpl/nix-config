@@ -52,5 +52,21 @@
             ];
         };
 
+        nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
+            specialArgs = {inherit inputs;};
+            modules = [
+                nix-ld.nixosModules.nix-ld
+                ./hosts/laptop/configuration.nix
+                ./nix-modules
+                home-manager.nixosModules.home-manager
+                {
+                    home-manager.useGlobalPkgs = true;
+                    home-manager.users.maticzpl = import ./hosts/laptop/home.nix;
+                    home-manager.extraSpecialArgs = { inherit inputs; };
+                }
+                inputs.xremap-flake.nixosModules.default
+            ];
+        };
+
     };
 }
