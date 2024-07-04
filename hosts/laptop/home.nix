@@ -39,6 +39,7 @@
     obsidian
     tldr
     htop
+    steam
 
     filezilla
     protonup-qt

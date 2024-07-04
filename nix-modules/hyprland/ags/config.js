@@ -12,10 +12,35 @@ function addBar(monitor = 0, alwaysVisible = false) {
         const icon = battery.bind("percent").as(p =>
             `battery-level-${Math.floor(p / 10) * 10}-symbolic`)
 
+        const tooltip = Utils.merge(
+            [
+                battery.bind("percent"),
+                battery.bind("time-remaining"),
+                battery.bind("charging"),
+                battery.bind("energy-rate")
+            ], (a, b, c, d) => {
+            let unit = "s";
+            let time = b;
+            if (time > 60) {
+                time /= 60;
+                unit = "m";
+            }
+            if (time > 60) {
+                time /= 60;
+                unit = "h";
+            }
+            
+            b = `${time}${unit}`;
+
+            console.log(a,b,c,d)
+            const charging = c ? `Charging, ` : "";
+            return `${a}%\n${charging}${b} remaining\n${d}W`;
+        })
+
         return Widget.Box({
             class_name: "battery",
             visible: battery.bind("available"),
-            tooltip_text: battery.bind("percent").as(p => `${p}%`),
+            tooltip_text: tooltip,
             children: [
                 Widget.Icon({ icon }),
                 Widget.LevelBar({
