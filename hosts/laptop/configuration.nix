@@ -22,12 +22,16 @@
       username = "maticzpl";
     };
     remoteDisplay = {
-      enable = true;
+      enable = false;
       username = "maticzpl";
     };
     hyprland = {
       enable = true;
       username = "maticzpl";
+      wallpaper = "~/Pictures/wallpapers/2022-01-08-00-03-18.png";
+      hyprlock = {
+        mainMonitor = "eDP-1";
+      };
     };
   };
 
@@ -133,8 +137,6 @@
     description = "Maticzpl";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-        remmina
-        lutris
     ];
   };
 
@@ -160,14 +162,10 @@
     unzip
     nodejs
 
-    xdg-desktop-portal-kde
-
     # gsettings-desktop-schemas
     gnome.adwaita-icon-theme
     gtk3
     glib
-
-    plasma-browser-integration
   ];
 
   fonts.packages = with pkgs; [

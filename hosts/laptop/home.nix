@@ -27,7 +27,6 @@
     kate
     (vesktop.override { withSystemVencord = false; })
     obs-studio
-    steam
     spotify
     curlWithGnuTls
     bitwarden
@@ -41,11 +40,9 @@
     tldr
     htop
 
-    bambu-studio
     filezilla
     protonup-qt
     prismlauncher
-    wlx-overlay-s
     bottles
     # spotdl # broken after update?
     ytmdl
@@ -57,9 +54,9 @@
 
     gimp
     protontricks
-    wlx-overlay-s
 
-    android-studio
+    remmina
+    lutris
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
@@ -117,6 +114,13 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
   nixpkgs.config.allowUnfree = true;
+
+  wayland.windowManager.hyprland.settings = {
+      monitor = [ 
+          "eDP-1,1920x1080,0x0,1"
+      ]; 
+  };
+
 
   # dconf = {
   #   enable = true;
