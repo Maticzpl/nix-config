@@ -189,8 +189,8 @@ function addBar(monitor = 0, alwaysVisible = false) {
 App.config({ 
     style: './style.css',
     windows: [
-        ...addBar(0),
-        ...addBar(1, true),
-        ...addBar(2),
+        ...addBar(0, true),
+        // ...addBar(1, true),
+        // ...addBar(2),
     ]
 });
