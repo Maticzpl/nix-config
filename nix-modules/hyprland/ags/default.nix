@@ -17,6 +17,7 @@ in
 
 
     config = lib.mkIf cfg.enable {
+        services.upower.enable = true;
 
         home-manager.users."${cfg.username}" = {
             imports = [ inputs.ags.homeManagerModules.default ];        
