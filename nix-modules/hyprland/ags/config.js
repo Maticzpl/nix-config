@@ -19,19 +19,19 @@ function addBar(monitor = 0, alwaysVisible = false) {
                 battery.bind("charging"),
                 battery.bind("energy-rate")
             ], (a, b, c, d) => {
-            let unit = "s";
             let time = b;
             if (time > 60) {
                 time /= 60;
-                unit = "m";
+                time = Math.round(time);
+                b = `${time}m`;
             }
             if (time > 60) {
+                let minutes = time % 60;
                 time /= 60;
-                unit = "h";
+                time = Math.round(time);
+                b = `${time}h ${minutes}m`;
             }
             
-            b = `${time}${unit}`;
-
             console.log(a,b,c,d)
             const charging = c ? `Charging, ` : "";
             return `${a}%\n${charging}${b} remaining\n${d}W`;

@@ -124,7 +124,7 @@ in
 
                  exec-once = [ 
                     # "dunst"
-                    "swayosd"
+                    # "swayosd"
                     "swww"
                     "sleep 5 && systemctl --user restart xremap"
                     "systemctl --user import-environment PATH && systemctl --user restart xdg-desktop-portal.service"

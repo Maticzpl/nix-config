@@ -10,10 +10,10 @@
     ];
 
   userMods = {
-    softwareCenter.enable = true;
+    softwareCenter.enable = false;
     appimage.enable = true;
     audio = {
-        enable = true;
+        enable = false;
         calfConfig = "/home/maticzpl/Documents/calf/default-connected";
     };
     nld.enable = true;
