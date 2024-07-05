@@ -14,4 +14,4 @@ fi
 cd ~/nix
 git add .
 git commit -m "$2"
-sudo nixos-rebuild switch --flake "/home/maticzpl/nix#$1" -p "$2"
+sudo nixos-rebuild switch --flake "/home/maticzpl/nix#$1" -p "$(date +'%Y-%m-%d_%H-%M-%S_')${2// /-}"

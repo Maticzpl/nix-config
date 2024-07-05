@@ -32,7 +32,6 @@ function addBar(monitor = 0, alwaysVisible = false) {
                 b = `${time}h ${minutes}m`;
             }
             
-            console.log(a,b,c,d)
             const charging = c ? `Charging, ` : "";
             return `${a}%\n${charging}${b} remaining\n${d}W`;
         })
@@ -231,12 +230,28 @@ function addBar(monitor = 0, alwaysVisible = false) {
     ]
 }
 
+function init() {
+    for (let window of App.windows)
+        App.removeWindow(window);
+
+    for (let monitor of hyprland.monitors ) {
+        for(let bar of addBar(monitor.id, true)) {
+            App.addWindow(bar)
+        }
+    }
+}
+
+hyprland.connect("monitor-added", init);
+hyprland.connect("monitor-removed", init);
 
 App.config({ 
     style: './style.css',
-    windows: [
-        ...addBar(0, true),
-        // ...addBar(1, true),
-        // ...addBar(2),
-    ]
+    windows: []
+    // [
+    //     ...addBar(0, true),
+    //     // ...addBar(1, true),
+    //     // ...addBar(2),
+    // ]
 });
+
+init();
