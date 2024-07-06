@@ -29,12 +29,25 @@ in
             withWlroots = true;
         };
 
+        services.xremap.config.modmap = [
+            {
+                name = "Super";
+                remap = {
+                    "SUPER_L" = "F24";
+                    # "KEY_LEFTMETA" = {
+                    #     alone = "KEY_F24";
+                    #     alone_timeout_millis = 200;
+                    # };
+                };
+            }
+        ];
+
         services.xremap.config.keymap = [
             {
                 name = "Hyprland nav";
                 mode = "default";
                 remap = {
-                  "SUPER-SPACE" = [
+                  "KEY_F24" = [
                     { set_mode = "super"; }
                   ] ++ color_special;
                 };
@@ -121,73 +134,6 @@ in
                   "J" = "SUPER-SHIFT-DOWN";
                   "K" = "SUPER-SHIFT-UP"; 
                   "L" = "SUPER-SHIFT-RIGHT"; 
-                };
-            }
-
-            {
-                name = "Spotify";
-                application = {
-                  only = "Spotify";
-                };
-                mode = "default";
-
-                remap = {
-                  "SPACE" = { "set_mode" = "spotify"; };
-                };
-            }
-            {
-                name = "Spotify Input";
-                application = {
-                  only = "Spotify";
-                };
-                mode = "spotifyInput";
-
-                remap = {
-                  "Enter" = [
-                    { "set_mode" = "spotify"; }
-                    "TAB" "TAB" "TAB" "DOWN" "UP"
-                  ];
-                  "Esc" = { "set_mode" = "default"; };
-                };
-            }
-            {
-                name = "Spotify special";
-                mode = "spotify";
-                application = {
-                  only = "Spotify";
-                };
-                remap = {
-                  "Esc" = { "set_mode" = "default"; };
-
-                  "H" = "LEFT";
-                  "J" = "DOWN";
-                  "K" = "UP"; 
-                  "L" = "RIGHT"; 
-
-                  "F" = "SHIFT-RIGHT"; # Forward
-                  "B" = "SHIFT-LEFT"; # Backwards
-
-                  "N" = "CTRL-RIGHT"; # Next song
-                  "P" = "CTRL-LEFT"; # Previous song
-
-                  "S" = "CTRL-S"; # Shuffle
-                  "R" = "CTRL-R"; # Repeat
-
-                  "T" = "ALT-SHIFT-R"; # Toggle sidebar
-
-                  # Navigate (Go)
-                  "G".remap = {
-                      "H" = "ALT-SHIFT-H"; # Home
-                      "P" = [
-                        "ALT-SHIFT-H"
-                        "CTRL-ALT-F" # Playlists
-                        { "set_mode" = "spotifyInput"; }
-                      ];
-                      "S" = [
-                        "CTRL-K"
-                        { "set_mode" = "spotifyInput"; }
-                      ]; # Quick Search
-                  };
                 };
             }
         ];
