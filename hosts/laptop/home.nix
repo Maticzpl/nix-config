@@ -35,7 +35,7 @@
     gitkraken
     git-graph
     fastfetch
-    gnome.dconf-editor
+    dconf-editor
     obsidian
     tldr
     htop

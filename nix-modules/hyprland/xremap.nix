@@ -33,11 +33,12 @@ in
             {
                 name = "Super";
                 remap = {
-                    "SUPER_L" = "F24";
-                    # "KEY_LEFTMETA" = {
-                    #     alone = "KEY_F24";
-                    #     alone_timeout_millis = 200;
-                    # };
+                    # "SUPER_L" = [ "F24" "SUPER_L" ];
+                    "SUPER_L" = {
+                        held = "SUPER_L";
+                        alone = "F24";
+                        alone_timeout_millis = 200;
+                    };
                 };
             }
         ];
@@ -79,9 +80,9 @@ in
                   "P" = "SUPER-CONTROL-H";
                   "N" = "SUPER-CONTROL-L";
 
-                  "SHIFT-ESCAPE" = "SUPER-SHIFT-ESCAPE";
-                  "ESCAPE" = "SUPER-ESCAPE";
-                  "ALT-ESCAPE" = "SUPER-ALT-ESCAPE";
+                  "SHIFT-ESC" = "SUPER-SHIFT-ESC";
+                  "SUPER-CTRL-ESC" = "SUPER-ESC";
+                  "ALT-ESC" = "SUPER-ALT-ESC";
 
                   "F" = "SUPER-F"; # Firefox
                   "T" = "SUPER-T"; # Terminal

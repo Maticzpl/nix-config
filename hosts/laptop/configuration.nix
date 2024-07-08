@@ -164,7 +164,7 @@
     nodejs
 
     # gsettings-desktop-schemas
-    gnome.adwaita-icon-theme
+    adwaita-icon-theme
     gtk3
     glib
   ];

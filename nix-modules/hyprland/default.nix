@@ -107,8 +107,8 @@ in
                 waypaper
                 nwg-look
                 pavucontrol
-                gnome.nautilus
-                gnome.file-roller
+                nautilus
+                file-roller
                 units
             ];
 
