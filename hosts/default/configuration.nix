@@ -28,6 +28,10 @@
     hyprland = {
       enable = true;
       username = "maticzpl";
+      wallpaper = "~/Pictures/wallpapers/2023-01-07-15-53-43.png";
+      hyprlock = {
+        mainMonitor = "DP-2";
+      };
     };
   };
 

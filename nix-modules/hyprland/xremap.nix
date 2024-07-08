@@ -79,6 +79,10 @@ in
                   "P" = "SUPER-CONTROL-H";
                   "N" = "SUPER-CONTROL-L";
 
+                  "SHIFT-ESCAPE" = "SUPER-SHIFT-ESCAPE";
+                  "ESCAPE" = "SUPER-ESCAPE";
+                  "ALT-ESCAPE" = "SUPER-ALT-ESCAPE";
+
                   "F" = "SUPER-F"; # Firefox
                   "T" = "SUPER-T"; # Terminal
                   "E" = "SUPER-E"; # File explorer
