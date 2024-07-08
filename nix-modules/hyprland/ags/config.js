@@ -6,6 +6,50 @@ const battery = await Service.import("battery")
 const systemtray = await Service.import("systemtray")
 
 function addBar(monitor = 0, alwaysVisible = false) {
+    
+    function BatteryLabel() {
+        const value = battery.bind("percent").as(p => p > 0 ? p / 100 : 0)
+        const icon = battery.bind("percent").as(p =>
+            `battery-level-${Math.floor(p / 10) * 10}-symbolic`)
+
+        const tooltip = Utils.merge(
+            [
+                battery.bind("percent"),
+                battery.bind("time-remaining"),
+                battery.bind("charging"),
+                battery.bind("energy-rate")
+            ], (a, b, c, d) => {
+            let time = b;
+            if (time > 60) {
+                time /= 60;
+                time = Math.round(time);
+                b = `${time}m`;
+            }
+            if (time > 60) {
+                let minutes = time % 60;
+                time /= 60;
+                time = Math.round(time);
+                b = `${time}h ${minutes}m`;
+            }
+            
+            const charging = c ? `Charging, ` : "";
+            return `${a}%\n${charging}${b} remaining\n${d}W`;
+        })
+
+        return Widget.Box({
+            class_name: "battery",
+            visible: battery.bind("available"),
+            tooltip_text: tooltip,
+            children: [
+                Widget.Icon({ icon }),
+                Widget.LevelBar({
+                    widthRequest: 100,
+                    vpack: "center",
+                    value,
+                }),
+            ],
+        })
+    }
 
     function SystemTray() {
         const trayItems = systemtray.bind("items")
@@ -132,7 +176,8 @@ function addBar(monitor = 0, alwaysVisible = false) {
         vertical: false,
         spacing: 8,
         children: [
-            Workspaces()
+            Workspaces(),
+            BatteryLabel()
         ]
     });
     const center = Widget.Box({
@@ -185,12 +230,28 @@ function addBar(monitor = 0, alwaysVisible = false) {
     ]
 }
 
+function init() {
+    for (let window of App.windows)
+        App.removeWindow(window);
+
+    for (let monitor of hyprland.monitors ) {
+        for(let bar of addBar(monitor.id, true)) {
+            App.addWindow(bar)
+        }
+    }
+}
+
+hyprland.connect("monitor-added", init);
+hyprland.connect("monitor-removed", init);
 
 App.config({ 
     style: './style.css',
-    windows: [
-        ...addBar(0),
-        ...addBar(1, true),
-        ...addBar(2),
-    ]
+    windows: []
+    // [
+    //     ...addBar(0, true),
+    //     // ...addBar(1, true),
+    //     // ...addBar(2),
+    // ]
 });
+
+init();

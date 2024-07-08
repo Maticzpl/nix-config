@@ -12,6 +12,11 @@ in
             type = lib.types.str;
             description = "User for which to set the config.fish file";
         };
+        wallpaper = lib.mkOption {
+            default = "";
+            type = lib.types.str;
+            description = "wallpaper path";
+        };
     };
 
     imports = [
@@ -34,8 +39,8 @@ in
         userMods.hyprland.hyprlock = {
             enable = lib.mkDefault true;
             username = lib.mkDefault cfg.username;
-            wallpaper = lib.mkDefault "/home/maticzpl/Pictures/wallpapers/2023-01-07-15-49-24.png";
-            mainMonitor = lib.mkDefault "DP-2";
+            wallpaper = lib.mkDefault cfg.wallpaper;
+            mainMonitor = lib.mkDefault "";
         };
 
         programs.hyprland.enable = true;
@@ -117,19 +122,13 @@ in
                  "$fileManager" = "nautilus";
                  "$menu" = "anyrun";#"wofi --show drun";
 
-                 monitor = [ 
-                    "DP-2,1920x1080,0x0,1"
-                    "DP-1,1280x800,400x1080,1"
-                    "HDMI-A-1,1920x1080,1920x0,1"
-                 ]; 
-
                  exec-once = [ 
                     # "dunst"
-                    "swayosd"
+                    # "swayosd"
                     "swww"
                     "sleep 5 && systemctl --user restart xremap"
                     "systemctl --user import-environment PATH && systemctl --user restart xdg-desktop-portal.service"
-                    "swww-daemon && sleep 2 && swww img ~/Pictures/wallpapers/2022-01-08-00-03-18.png"
+                    "swww-daemon && sleep 2 && swww img ${cfg.wallpaper}"
                     "lxqt-policykit-agent"
                  ];
 
