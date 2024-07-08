@@ -45,6 +45,10 @@
       fsType = "ntfs";
   };
 
+  # services.devmon.enable = true;
+  services.gvfs.enable = true;
+  # services.udisks2.enable = true;
+
   # hardware.opengl = {
   #     driSupport = true;
   #     driSupport32Bit = true;
@@ -52,6 +56,7 @@
 
   hardware.graphics = {
       enable = true;
+      enable32Bit = true;
       extraPackages = with pkgs; [
         libvdpau-va-gl
       ];

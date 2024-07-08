@@ -64,6 +64,7 @@ in
             breeze-gtk
             breeze-qt5
             lxqt.lxqt-policykit
+            udiskie
             #xdg-desktop-portal
         ];
 
@@ -130,6 +131,7 @@ in
                     "systemctl --user import-environment PATH && systemctl --user restart xdg-desktop-portal.service"
                     "swww-daemon && sleep 2 && swww img ${cfg.wallpaper}"
                     "lxqt-policykit-agent"
+                    "udiskie"
                  ];
 
                  env = [
@@ -202,7 +204,9 @@ in
                  };
 
                  input = {
-                    kb_layout = "pl";
+                    kb_layout = "pl,ru";
+                    kb_variant = ",phonetic";
+                    kb_options = "grp:alt_shift_toggle"; # or hyprctl switchxkblayout
 
                     follow_mouse = 1;
 

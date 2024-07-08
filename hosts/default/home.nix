@@ -41,6 +41,7 @@ in
     fastfetch
     gnome.dconf-editor
     obsidian
+    vscode
     tldr
     htop
 
