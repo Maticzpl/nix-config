@@ -96,6 +96,7 @@ in
                 swww
                 hyprpaper
                 playerctl
+                brightnessctl
 
                 # Screenshots
                 satty
@@ -217,6 +218,7 @@ in
                    "$mod, F, exec, firefox"
 				   "$mod, T, exec, $terminal"
 				   "$mod, E, exec, $fileManager"
+				   "$mod, X, exec, systemctl --user restart xremap"
 
 				   "$mod, R, exec, $menu"
 				   "$mod, P, pseudo, # dwindle"
@@ -231,7 +233,7 @@ in
 				   "$mod SHIFT, C, killactive,"
 				   "$mod SHIFT, G, togglegroup,"
 				   "$mod SHIFT, S, togglesplit,"
-				   "$mod SHIFT, U, focusurgentorlast,"
+				   # "$mod SHIFT, U, focusurgentorlast,"
 
 				   "$mod SHIFT, M, fullscreen, 1"
 				   "$mod Control_L SHIFT, M, fullscreen, 0"
@@ -247,8 +249,8 @@ in
 				   "$mod SHIFT, up, resizeactive, 0 -10"
 				   "$mod SHIFT, down, resizeactive, 0 10"
 
-				   "$mod Control_L, H, changegroupactive, b"
-				   "$mod Control_L, L, changegroupactive, f"
+				   # "$mod Control_L, H, changegroupactive, b"
+				   # "$mod Control_L, L, changegroupactive, f"
 
                    "$mod, 1, exec, hyprnome --previous"
                    "$mod, 2, exec, hyprnome"
@@ -287,6 +289,9 @@ in
                     # Scroll through existing workspaces with mainMod + scroll
 				   "$mod, mouse_down, workspace, e+1"
 				   "$mod, mouse_up, workspace, e-1"
+
+                   ",XF86MonBrightnessDown,exec,brightnessctl set 5%-"
+                   ",XF86MonBrightnessUp,exec,brightnessctl set +5%"
 
                    ",Print, exec, grim - | satty --filename - --fullscreen --output-filename ~/Pictures/Screenshots/satty-$(date '+%Y%m%d-%H:%M:%S').png"
                  ];

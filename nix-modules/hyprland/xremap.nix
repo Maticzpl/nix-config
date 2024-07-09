@@ -16,6 +16,7 @@ let
       { launch = ["hyprctl" "keyword" "general:col.active_border" "rgba(33ccffee) rgba(00ff99ee) 45deg"]; }
       { launch = ["hyprctl" "keyword" "group:col.border_active" "rgba(33ccffee) rgba(00ff99ee) 45deg"]; }
     ];
+    hyprctl = cmd: { launch = [ "hyprctl" "dispatch" cmd ]; };
 in
 
 {
@@ -66,52 +67,54 @@ in
                   ] ++ color_default;
 
                   # Move cursor
-                  "H" = "SUPER-H";
-                  "J" = "SUPER-J";
-                  "K" = "SUPER-K";
-                  "L" = "SUPER-L";
+                  "H" = hyprctl "movefocus l";
+                  "J" = hyprctl "movefocus d";
+                  "K" = hyprctl "movefocus u";
+                  "L" = hyprctl "movefocus r";
 
                   # Move to workspaces
-                  "1" = "SUPER-1";
-                  "2" = "SUPER-2";
-                  "Q" = "SUPER-Q"; # Special
+                  "1" = hyprctl "exec hyprnome --previous";
+                  "2" = hyprctl "exec hyprnome";
+                  "Q" = hyprctl "togglespecialworkspace magic"; # Special
 
                   # Move cursor in group
-                  "P" = "SUPER-CONTROL-H";
-                  "N" = "SUPER-CONTROL-L";
+                  "P" = hyprctl "changegroupactive b";
+                  "N" = hyprctl "changegroupactive f";
 
-                  "SHIFT-ESC" = "SUPER-SHIFT-ESC";
-                  "SUPER-CTRL-ESC" = "SUPER-ESC";
-                  "ALT-ESC" = "SUPER-ALT-ESC";
+                  "SHIFT-ESC" = hyprctl "exit";
+                  "SUPER-CTRL-ESC" = hyprctl "exec hyprlock";
+                  "ALT-ESC" = hyprctl "exec hyprlock & systemctl suspend";
 
-                  "F" = "SUPER-F"; # Firefox
-                  "T" = "SUPER-T"; # Terminal
-                  "E" = "SUPER-E"; # File explorer
+                  "F" = hyprctl "exec firefox"; # Firefox
+                  "T" = hyprctl "exec konsole"; # Terminal
+                  "E" = hyprctl "exec nautilus"; # File explorer
+                  "V" = hyprctl "exec vesktop"; 
                   "R" = [ 
                     { "set_mode" = "default"; }
+                    # hyprctl "exec anyrun"
                     "SUPER-R"
                   ] ++ color_default; # Run
 
                   "KEY_W".remap = {
                     # Move to workspaces
-                    "1" = "SUPER-SHIFT-1";
-                    "2" = "SUPER-SHIFT-2";
-                    "Q" = "SUPER-SHIFT-Q"; # Special
+                    "1" = hyprctl "exec hyprnome --previous --move";
+                    "2" = hyprctl "exec hyprnome --move";
+                    "Q" = hyprctl "movetoworkspace special:magic"; # Special
 
-                    "H" = "SUPER-SHIFT-H"; 
-                    "J" = "SUPER-SHIFT-J";
-                    "K" = "SUPER-SHIFT-K";
-                    "L" = "SUPER-SHIFT-L";
+                    "H" = hyprctl "movewindoworgroup l"; 
+                    "J" = hyprctl "movewindoworgroup d";
+                    "K" = hyprctl "movewindoworgroup u";
+                    "L" = hyprctl "movewindoworgroup r";
 
-                    "C" = "SUPER-SHIFT-C"; # Close
-                    "G" = "SUPER-SHIFT-G"; # Group
-                    "S" = "SUPER-SHIFT-S"; # Split change
-                    "M" = "SUPER-SHIFT-M"; # Maximize
+                    "C" = hyprctl "killactive"; # Close
+                    "G" = hyprctl "togglegroup"; # Group
+                    "S" = hyprctl "togglesplit"; # Split change
+                    "M" = hyprctl "fullscreen 1"; # Maximize
 
                     "F".remap = {
                       "L" = "SUPER-SHIFT-F";         #FLoat
-                      "S" = "SUPER-SHIFT-CONTROL-M"; #FullScreen
-                      "F" = "SUPER-SHIFT-CONTROL-F"; #FullscreenFake
+                      "S" = hyprctl "fullscreen 0"; #FullScreen
+                      "F" = hyprctl "fullscreen 2"; #FullscreenFake
                     };
 
                     "R".remap = {
@@ -135,10 +138,10 @@ in
                   ] ++ color_special;
 
                   # Resize window
-                  "H" = "SUPER-SHIFT-LEFT";
-                  "J" = "SUPER-SHIFT-DOWN";
-                  "K" = "SUPER-SHIFT-UP"; 
-                  "L" = "SUPER-SHIFT-RIGHT"; 
+                  "H" = hyprctl "resizeactive -10 0";
+                  "J" = hyprctl "resizeactive 0 10";
+                  "K" = hyprctl "resizeactive 0 -10"; 
+                  "L" = hyprctl "resizeactive 10 0"; 
                 };
             }
         ];
