@@ -51,19 +51,24 @@ in
     prismlauncher
     wlx-overlay-s
     bottles
-    # spotdl # broken after update?
+    legendary-gl
+    heroic
+    spotdl
     ytmdl
     zoxide
     mpv
     calibre
     imhex
     mission-center
+    qdirstat
 
     gimp
+    davinci-resolve
     protontricks
     wlx-overlay-s
 
     android-studio
+
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello

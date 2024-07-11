@@ -182,6 +182,11 @@
       config.keymap = [];
       #deviceNames = [ ];
   };
+
+  powerManagement = {
+      enable = true;
+      powertop.enable = true;
+  };
   # programs.dconf.enable = true;
   # xdg.portal = {
   #     enable = true;
