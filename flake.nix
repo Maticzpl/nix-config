@@ -2,7 +2,7 @@
     description = "Maticzpl's flake";
 
     inputs = {
-        nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+        nixpkgs.url = "github:nixos/nixpkgs?ref=master";
         nixpkgs-stable.url = "github:nixos/nixpkgs?ref=nixos-24.05";
 
         home-manager = {

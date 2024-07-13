@@ -63,6 +63,7 @@ in
     qdirstat
 
     gimp
+    krita
     davinci-resolve
     protontricks
     wlx-overlay-s
