@@ -1,6 +1,7 @@
 { config, pkgs, inputs, ... }:
 let
     stable = import inputs.nixpkgs-stable { system = pkgs.system; config.allowUnfree = true; };
+    unstableAF = import inputs.nixpkgs-very-fucking-unstable { system = pkgs.system; config.allowUnfree = true; };
 in
 {
   imports = [
@@ -31,12 +32,13 @@ in
     obs-studio
     steam
 
+
     spotify
     curlWithGnuTls
     bitwarden
     firefox
     flatpak
-    gitkraken
+    # gitkraken
     git-graph
     fastfetch
     dconf-editor
@@ -87,7 +89,11 @@ in
     #   echo "Hello, ${config.home.username}!"
     # '')
   ]) ++ 
+  (with unstableAF; [
+
+  ]) ++
   (with stable; [
+    gitkraken
     # steam
   ]);
 

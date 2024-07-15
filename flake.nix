@@ -2,8 +2,9 @@
     description = "Maticzpl's flake";
 
     inputs = {
-        nixpkgs.url = "github:nixos/nixpkgs?ref=master";
+        nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
         nixpkgs-stable.url = "github:nixos/nixpkgs?ref=nixos-24.05";
+        nixpkgs-very-fucking-unstable.url = "github:nixos/nixpkgs?ref=master"; # Too impatient to wait for changes from master to be merged to unstable lol
 
         home-manager = {
             url = "github:nix-community/home-manager";
@@ -36,7 +37,7 @@
 
     };
 
-    outputs = { self, nixpkgs, nix-ld, home-manager, hyprland, ... }@inputs: {
+    outputs = { self, nixpkgs, nix-ld, home-manager, ... }@inputs: {
         nixosConfigurations.default = nixpkgs.lib.nixosSystem {
             specialArgs = {
                 inherit inputs;
