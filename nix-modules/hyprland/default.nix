@@ -83,6 +83,29 @@ in
             };
         };
 
+        systemd.user.timers."wallpaper-changer" = if builtins.pathExists (cfg.wallpaper + "/.") then {
+            description = "Change wallpaper every 5 minutes";
+            wantedBy = [ "timers.target" ];
+            timerConfig = {
+                OnBootSec = "1min";
+                OnUnitActiveSec = "5min";
+                unit = "wallpaper-changer.service";
+            };
+        } else {};
+
+        systemd.user.services = {
+            "wallpaper-changer" = {
+                description = "Change wallpaper service";
+                wantedBy = [ "timers.target" ];
+                serviceConfig = {
+                    ExecStart = ''
+                        /bin/sh -c 'find ${cfg.wallpaper} -type f | shuf -n 1 | xargs ${pkgs.swww}/bin/swww img'
+                    '';
+                    Type = "oneshot";
+                };
+            };
+        };
+
         fonts.packages = with pkgs; [
             noto-fonts
         ];
@@ -130,10 +153,14 @@ in
                     "swww"
                     "sleep 5 && systemctl --user restart xremap"
                     "systemctl --user import-environment PATH && systemctl --user restart xdg-desktop-portal.service"
-                    "swww-daemon && sleep 2 && swww img ${cfg.wallpaper}"
                     "lxqt-policykit-agent"
                     "udiskie"
-                 ];
+                 ] ++ (
+                    if builtins.pathExists (cfg.wallpaper + "/.") then
+                        ["swww-daemon && sleep 2 && systemctl start wallpaper-changer"]
+                    else
+                        ["swww-daemon && sleep 2 && swww img ${cfg.wallpaper}"]
+                 );
 
                  env = [
                     "XCURSOR_SIZE,24"
@@ -184,10 +211,13 @@ in
 
                     blur = {
                       enabled = true;
-                      size = 3;
-                      passes = 1;
+                      size = 4;
+                      passes = 2;
 
-                      vibrancy = 0.1696;
+                      vibrancy = 0.2;
+                      brightness = 0.867;
+                      contrast = 0.8;
+                      noise = 0.04;
                     };
                  };
 
