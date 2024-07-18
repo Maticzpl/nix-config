@@ -38,10 +38,10 @@ in
             };
         };
 
-        systemd.user.services.calfjackhost = {
+        systemd.user.services.calfjackhostd = {
             enable = true;
             description = "Calf Studio Gear - JACK Audio Host";
-            after = ["jack.service"];
+            # after = ["jack.service"];
             wantedBy = ["default.target"];
             serviceConfig = {
                 Type = "simple";
@@ -51,10 +51,10 @@ in
             };
         };
 
-        systemd.user.services.qpwgraph = {
+        systemd.user.services.qpwgraphd = {
             enable = true;
             description = "Patchbay - qpwgraph";
-            after = ["calfjackhost.service"];
+            after = ["calfjackhostd.service"];
             wantedBy = ["default.target"];
             serviceConfig = {
                 Type = "simple";
