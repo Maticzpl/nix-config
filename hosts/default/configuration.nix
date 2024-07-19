@@ -29,6 +29,7 @@
       enable = true;
       username = "maticzpl";
       wallpaper = "/home/maticzpl/Pictures/wallpapers/selected";
+      wallpaperIsDirectory = true; 
       hyprlock = {
         mainMonitor = "DP-2";
       };

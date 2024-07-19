@@ -10,12 +10,17 @@ in
         username = lib.mkOption {
             default = "";
             type = lib.types.str;
-            description = "User for which to set the config.fish file";
+            description = "User for which to set the hyprland config";
         };
         wallpaper = lib.mkOption {
             default = "";
             type = lib.types.str;
             description = "wallpaper path";
+        };
+        wallpaperIsDirectory = lib.mkOption { # TODO: Detect based on path
+            default = false;
+            type = lib.types.bool;
+            description = "Randomly select wallpaper from dir specified in wallpaper arg";
         };
     };
 
@@ -24,6 +29,7 @@ in
         ./ags
         ./anyrun.nix
         ./hyprlock.nix
+        ./cavabg.nix
     ];
 
     config = lib.mkIf cfg.enable {
@@ -41,6 +47,10 @@ in
             username = lib.mkDefault cfg.username;
             wallpaper = lib.mkDefault cfg.wallpaper;
             mainMonitor = lib.mkDefault "";
+        };
+        userMods.hyprland.cavabg = {
+            enable = lib.mkDefault true;
+            username = lib.mkDefault cfg.username;
         };
 
         programs.hyprland.enable = true;
@@ -83,20 +93,20 @@ in
             };
         };
 
-        systemd.user.timers."wallpaper-changer" = if builtins.pathExists (cfg.wallpaper + "/.") then {
-            description = "Change wallpaper every 5 minutes";
-            wantedBy = [ "timers.target" ];
-            timerConfig = {
-                OnBootSec = "1min";
-                OnUnitActiveSec = "5min";
-                unit = "wallpaper-changer.service";
+        systemd.user.timers = if cfg.wallpaperIsDirectory then {
+            "wallpaper-timer" = {
+                wantedBy = [ "default.target" ];
+                timerConfig = {
+                    OnBootSec = "1min";
+                    OnUnitActiveSec = "5min";
+                    Unit = "wallpaper-changer.service";
+                };
             };
         } else {};
 
         systemd.user.services = {
             "wallpaper-changer" = {
                 description = "Change wallpaper service";
-                wantedBy = [ "timers.target" ];
                 serviceConfig = {
                     ExecStart = ''
                         /bin/sh -c 'find ${cfg.wallpaper} -type f | shuf -n 1 | xargs ${pkgs.swww}/bin/swww img'
@@ -168,7 +178,7 @@ in
                  ];
 
                  general = {
-                    gaps_in = 5;
+                    gaps_in = 2;
                     gaps_out = 10;
 
                     border_size = 2;
@@ -199,7 +209,7 @@ in
                  };
 
                  decoration = {
-                    rounding = 10;
+                    rounding = 4;
 
                     active_opacity = 1.0;
                     inactive_opacity = 1.0;
@@ -345,10 +355,8 @@ in
                     "workspace special:magic silent, class:(calfjackhost|qpwgraph)"
                     "float,title:(Picture-in-Picture)"
                  ];
+
                };
-              plugins = [
-                  #inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars
-              ];
             };
         };
 
