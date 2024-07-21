@@ -80,8 +80,8 @@
 
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [ 9943 9944 ];
-    allowedUDPPorts = [ 9943 9944 ];
+    allowedTCPPorts = [ 9943 9944 6567 ];
+    allowedUDPPorts = [ 9943 9944 6567 ];
   };
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];

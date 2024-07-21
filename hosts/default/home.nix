@@ -94,6 +94,7 @@ in
   ]) ++
   (with stable; [
     gitkraken
+    mindustry
     # steam
   ]);
 

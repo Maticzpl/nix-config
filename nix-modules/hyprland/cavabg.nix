@@ -52,6 +52,7 @@ in
                     [color]
                     # foreground = "#1177FFdd"
                     foreground = blue
+                    foreground_opacity = 0.5
 
                     [smoothing]
                      noise_reduction = 0
