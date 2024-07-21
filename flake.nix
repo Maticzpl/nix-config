@@ -43,7 +43,7 @@
                 inherit inputs;
             };
             modules = [ 
-                nix-ld.nixosModules.nix-ld
+                # nix-ld.nixosModules.nix-ld
                 ./hosts/default/configuration.nix
                 ./nix-modules
                 home-manager.nixosModules.home-manager
@@ -59,7 +59,6 @@
         nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
             specialArgs = {inherit inputs;};
             modules = [
-                nix-ld.nixosModules.nix-ld
                 ./hosts/laptop/configuration.nix
                 ./nix-modules
                 home-manager.nixosModules.home-manager

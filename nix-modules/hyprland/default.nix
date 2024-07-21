@@ -33,24 +33,26 @@ in
     ];
 
     config = lib.mkIf cfg.enable {
-        userMods.hyprland.xremap.enable = lib.mkDefault true;
-        userMods.hyprland.ags = {
-            enable = lib.mkDefault true;
-            username = lib.mkDefault cfg.username;
-        };
-        userMods.hyprland.anyrun = {
-            enable = lib.mkDefault true;
-            username = lib.mkDefault cfg.username;
-        };
-        userMods.hyprland.hyprlock = {
-            enable = lib.mkDefault true;
-            username = lib.mkDefault cfg.username;
-            wallpaper = lib.mkDefault cfg.wallpaper;
-            mainMonitor = lib.mkDefault "";
-        };
-        userMods.hyprland.cavabg = {
-            enable = lib.mkDefault true;
-            username = lib.mkDefault cfg.username;
+        userMods.hyprland = {
+            xremap.enable = lib.mkDefault true;
+            ags = {
+                enable = lib.mkDefault true;
+                username = lib.mkDefault cfg.username;
+            };
+            anyrun = {
+                enable = lib.mkDefault true;
+                username = lib.mkDefault cfg.username;
+            };
+            hyprlock = {
+                enable = lib.mkDefault true;
+                username = lib.mkDefault cfg.username;
+                wallpaper = lib.mkDefault cfg.wallpaper;
+                mainMonitor = lib.mkDefault "";
+            };
+            cavabg = {
+                enable = lib.mkDefault true;
+                username = lib.mkDefault cfg.username;
+            };
         };
 
         programs.hyprland.enable = true;
