@@ -1,4 +1,4 @@
-with import <nixpkgs> {};
+with import <nixpkgs> { };
 mkShell {
   NIX_LD_LIBRARY_PATH = lib.makeLibraryPath [
     alsa-lib

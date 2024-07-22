@@ -1,6 +1,6 @@
-  # Edit this configuration file to define what should be installed on
-  # your system.  Help is available in the configuration.nix(5) man page
-  # and in the NixOS manual (accessible by running ‘nixos-help’).
+# Edit this configuration file to define what should be installed on
+# your system.  Help is available in the configuration.nix(5) man page
+# and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, inputs, ... }:
 {
@@ -13,8 +13,8 @@
     softwareCenter.enable = false;
     appimage.enable = true;
     audio = {
-        enable = false;
-        calfConfig = "/home/maticzpl/Documents/calf/default-connected";
+      enable = false;
+      calfConfig = "/home/maticzpl/Documents/calf/default-connected";
     };
     nld.enable = true;
     fish = {
@@ -44,11 +44,11 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   hardware.graphics = {
-      enable = true;
-      enable32Bit = true;
-      extraPackages = with pkgs; [
-        libvdpau-va-gl
-      ];
+    enable = true;
+    enable32Bit = true;
+    extraPackages = with pkgs; [
+      libvdpau-va-gl
+    ];
   };
 
   networking.hostName = "mati-nixos-laptop"; # Define your hostname.
@@ -98,9 +98,9 @@
 
   # Configure keymap in X11
   services.xserver = {
-    xkb = { 
-        variant = "";
-        layout = "pl";
+    xkb = {
+      variant = "";
+      layout = "pl";
     };
   };
 
@@ -177,15 +177,15 @@
   hardware.bluetooth.powerOnBoot = true;
 
   services.xremap = {
-      serviceMode = "user";
-      userName = "maticzpl";
-      config.keymap = [];
-      #deviceNames = [ ];
+    serviceMode = "user";
+    userName = "maticzpl";
+    config.keymap = [ ];
+    #deviceNames = [ ];
   };
 
   powerManagement = {
-      enable = true;
-      powertop.enable = true;
+    enable = true;
+    powertop.enable = true;
   };
   # programs.dconf.enable = true;
   # xdg.portal = {

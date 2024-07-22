@@ -1,13 +1,9 @@
 { config, pkgs, inputs, ... }:
 let
-    stable = import inputs.nixpkgs-stable { system = pkgs.system; config.allowUnfree = true; };
-    unstableAF = import inputs.nixpkgs-very-fucking-unstable { system = pkgs.system; config.allowUnfree = true; };
+  stable = import inputs.nixpkgs-stable { system = pkgs.system; config.allowUnfree = true; };
+  unstableAF = import inputs.nixpkgs-very-fucking-unstable { system = pkgs.system; config.allowUnfree = true; };
 in
 {
-  imports = [
-    ../../home-manager-modules
-  ];
-
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "maticzpl";
@@ -88,7 +84,7 @@ in
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
-  ]) ++ 
+  ]) ++
   (with unstableAF; [
 
   ]) ++
@@ -139,11 +135,11 @@ in
   nixpkgs.config.allowUnfree = true;
 
   wayland.windowManager.hyprland.settings = {
-      monitor = [ 
-          "DP-2,1920x1080,0x0,1"
-          "DP-1,1280x800,400x1080,1"
-          "HDMI-A-1,1920x1080,1920x0,1"
-      ]; 
+    monitor = [
+      "DP-2,1920x1080,0x0,1"
+      "DP-1,1280x800,400x1080,1"
+      "HDMI-A-1,1920x1080,1920x0,1"
+    ];
   };
   # dconf = {
   #   enable = true;

@@ -1,14 +1,13 @@
 { lib, config, pkgs, ... }:
 
 let
-    cfg = config.userMods.MODULENAME;
+  cfg = config.userMods.MODULENAME;
 in
 
 {
-    options.userMods.MODULENAME = {
-        enable = lib.mkEnableOption "enable user module";
-    };
+  options.userMods.MODULENAME = {
+    enable = lib.mkEnableOption "enable user module";
+  };
 
-    config = lib.mkIf cfg.enable {
-    };
+  config = lib.mkIf cfg.enable { };
 }

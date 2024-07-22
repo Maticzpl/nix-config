@@ -1,10 +1,6 @@
 { config, pkgs, outputs, lib, ... }:
 
 {
-  imports = [
-    ../../home-manager-modules
-  ];
-
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "maticzpl";
@@ -117,20 +113,20 @@
   nixpkgs.config.allowUnfree = true;
 
   wayland.windowManager.hyprland.settings = {
-      animation = [
-          "global,0,8,default"
-      ];
+    animation = [
+      "global,0,8,default"
+    ];
 
-      decoration.blur.enabled = lib.mkForce false;
-      decoration.drop_shadow = lib.mkForce false;
-      # bind = [
-      #     ",XF86MonBrightnessDown,exec,brightnessctl set 5%-"
-      #     ",XF86MonBrightnessUp,exec,brightnessctl set +5%"
-      # ];
-      misc.vfr = true;
-      monitor = [ 
-          "eDP-1,1920x1080,0x0,1"
-      ]; 
+    decoration.blur.enabled = lib.mkForce false;
+    decoration.drop_shadow = lib.mkForce false;
+    # bind = [
+    #     ",XF86MonBrightnessDown,exec,brightnessctl set 5%-"
+    #     ",XF86MonBrightnessUp,exec,brightnessctl set +5%"
+    # ];
+    misc.vfr = true;
+    monitor = [
+      "eDP-1,1920x1080,0x0,1"
+    ];
   };
 
 
